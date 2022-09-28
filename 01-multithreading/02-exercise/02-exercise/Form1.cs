@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace _02_exercise
 {
@@ -21,34 +22,57 @@ namespace _02_exercise
             return value;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void showInfo(Process[] processes)
         {
-            Process[] processes = Process.GetProcesses();
             string id;
             string processName;
             string windowsTitle;
+            string message;
+            const string FORMAT = "{0,-4}  {1,-6}  {2,-5}  {3,-20}  {4,-6}  {5,-10}";
+            Font myfont = new Font("Lucida Console", 9.0f);
+
+
+            textBox1.Font = myfont;
+            textBox1.Clear();
 
             foreach (Process p in processes)
             {
-                id = cutString(p.Id.ToString(), 10);
+                id = cutString(p.Id.ToString(), 6);
                 processName = cutString(p.ProcessName, 20);
-                windowsTitle = cutString(p.MainWindowTitle, 20);
+                windowsTitle = cutString(p.MainWindowTitle, 10);
 
-                textBox1.AppendText($"ID={id,10}       Process Name={processName,20}");
+                message = String.Format(FORMAT, "PID", id, "Name", processName, "Title", windowsTitle);
+                textBox1.AppendText(message + Environment.NewLine);
+                Trace.WriteLine(message + Environment.NewLine);
 
-                if (windowsTitle.Length != 0)
-                {
-                    textBox1.AppendText($"Window Title={windowsTitle,10}{Environment.NewLine}");
-                }
-                else
-                {
-                    textBox1.AppendText(Environment.NewLine);
-                }
             }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            showInfo(Process.GetProcesses());
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            Font myfont = new Font("Lucida Console", 9.0f);
+            textBox1.Font = myfont;
+
+            bool correct = true;
+            int id = 0;
+
+            correct = int.TryParse(textBox2.Text, out id);
+
+            if (correct)
+            {
+                Process p = Process.GetProcessById(id);
+                Process[] processes = new Process[] { p };
+                showInfo(processes);
+
+            }
+
+
 
         }
 
