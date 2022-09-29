@@ -22,12 +22,17 @@ namespace _02_exercise
             return value;
         }
 
-        private void showInfo(Process[] processes)
+        private void showInfo(Process[] processes, bool showMoreInfo = false)
         {
             string id;
             string processName;
             string windowsTitle;
             string message;
+            string subpId;
+            string subpStartTime;
+            string modpName;
+            string modpFileName;
+
             const string FORMAT = "{0,-4}  {1,-6}  {2,-5}  {3,-20}  {4,-6}  {5,-10}";
             Font myfont = new Font("Lucida Console", 9.0f);
 
@@ -45,6 +50,39 @@ namespace _02_exercise
                 textBox1.AppendText(message + Environment.NewLine);
                 Trace.WriteLine(message + Environment.NewLine);
 
+                if (showMoreInfo)
+                {
+
+                    ProcessThreadCollection pt = p.Threads;
+
+                    if (pt != null && pt.Count > 0)
+                    {
+                        textBox1.AppendText(Environment.NewLine + "Subprocess" + Environment.NewLine);
+
+                        foreach (ProcessThread subp in pt)
+                        {
+                            subpId = cutString(subp.Id.ToString(), 6);
+                            subpStartTime = cutString(subp.StartTime.ToString(), 10);
+                            textBox1.AppendText($"\t{"PID",-4}  {subpId,-6}  {"Start Time",-10}  {subpStartTime,-10}" + Environment.NewLine);
+                        }
+                    }
+
+                    ProcessModuleCollection pm = p.Modules;
+
+                    if (pm != null && pm.Count > 0)
+                    {
+                        textBox1.AppendText(Environment.NewLine + "Modules" + Environment.NewLine);
+
+                        foreach (ProcessModule modp in pm)
+                        {
+                            modpName = cutString(modp.ModuleName, 20);
+                            modpFileName = cutString(modp.FileName, 20);
+
+                            textBox1.AppendText($"\t{"Name",-5}  {modpName,-20}  {"File Name",-10}  {modpFileName,-20}" + Environment.NewLine);
+
+                        }
+                    }
+                }
             }
 
         }
@@ -59,6 +97,73 @@ namespace _02_exercise
             Font myfont = new Font("Lucida Console", 9.0f);
             textBox1.Font = myfont;
 
+
+
+            bool find = getProcessesByText(out Process[] processes);
+
+            if (find)
+            {
+                showInfo(processes, true);
+            }
+
+
+        }
+
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            bool find = getProcessesByText(out Process[] processes);
+
+            if (find)
+            {
+                processes[0].CloseMainWindow();
+            }
+
+        }
+
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            bool find = getProcessesByText(out Process[] processes);
+
+            if (find)
+            {
+                processes[0].Kill();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start(textBox2.Text);
+            }
+            catch (ObjectDisposedException)
+            {
+                Trace.WriteLine("error launching app");
+            }
+            catch (FileNotFoundException)
+            {
+                Trace.WriteLine("error launching app");
+            }
+            catch
+            {
+                Trace.WriteLine("error launching app");
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+
+            Process[] p = Process.GetProcesses();
+            p = Array.FindAll(p, (x) => x.ProcessName.StartsWith(textBox2.Text));
+            textBox1.Clear();
+            Array.ForEach(p, (x) => textBox1.AppendText($"Name  {cutString(x.ProcessName, 20),-20}{Environment.NewLine}"));
+
+        }
+
+        private bool getProcessesByText(out Process[] processes)
+        {
             bool correct = true;
             int id = 0;
 
@@ -66,19 +171,28 @@ namespace _02_exercise
 
             if (correct)
             {
-                Process p = Process.GetProcessById(id);
-                Process[] processes = new Process[] { p };
-                showInfo(processes);
+                try
+                {
+                    Process p = Process.GetProcessById(id);
+                    processes = new Process[] { p };
+
+                    return true;
+                }
+                catch (ArgumentException)
+                {
+                    Trace.WriteLine("error creating process");
+                }
+                catch
+                {
+                    Trace.WriteLine("error creating process");
+                }
+
 
             }
 
+            processes = null;
 
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
+            return false;
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -86,7 +200,7 @@ namespace _02_exercise
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
