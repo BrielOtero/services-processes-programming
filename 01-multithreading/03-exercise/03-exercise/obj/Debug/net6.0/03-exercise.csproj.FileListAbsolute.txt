@@ -1,0 +1,15 @@
+C:\git\Services-Processes-Programming\01-multithreading\03-exercise\03-exercise\bin\Debug\net6.0\03-exercise.exe
+C:\git\Services-Processes-Programming\01-multithreading\03-exercise\03-exercise\bin\Debug\net6.0\03-exercise.deps.json
+C:\git\Services-Processes-Programming\01-multithreading\03-exercise\03-exercise\bin\Debug\net6.0\03-exercise.runtimeconfig.json
+C:\git\Services-Processes-Programming\01-multithreading\03-exercise\03-exercise\bin\Debug\net6.0\03-exercise.dll
+C:\git\Services-Processes-Programming\01-multithreading\03-exercise\03-exercise\bin\Debug\net6.0\03-exercise.pdb
+C:\git\Services-Processes-Programming\01-multithreading\03-exercise\03-exercise\obj\Debug\net6.0\03-exercise.csproj.AssemblyReference.cache
+C:\git\Services-Processes-Programming\01-multithreading\03-exercise\03-exercise\obj\Debug\net6.0\03-exercise.GeneratedMSBuildEditorConfig.editorconfig
+C:\git\Services-Processes-Programming\01-multithreading\03-exercise\03-exercise\obj\Debug\net6.0\03-exercise.AssemblyInfoInputs.cache
+C:\git\Services-Processes-Programming\01-multithreading\03-exercise\03-exercise\obj\Debug\net6.0\03-exercise.AssemblyInfo.cs
+C:\git\Services-Processes-Programming\01-multithreading\03-exercise\03-exercise\obj\Debug\net6.0\03-exercise.csproj.CoreCompileInputs.cache
+C:\git\Services-Processes-Programming\01-multithreading\03-exercise\03-exercise\obj\Debug\net6.0\03-exercise.dll
+C:\git\Services-Processes-Programming\01-multithreading\03-exercise\03-exercise\obj\Debug\net6.0\refint\03-exercise.dll
+C:\git\Services-Processes-Programming\01-multithreading\03-exercise\03-exercise\obj\Debug\net6.0\03-exercise.pdb
+C:\git\Services-Processes-Programming\01-multithreading\03-exercise\03-exercise\obj\Debug\net6.0\03-exercise.genruntimeconfig.cache
+C:\git\Services-Processes-Programming\01-multithreading\03-exercise\03-exercise\obj\Debug\net6.0\ref\03-exercise.dll
