@@ -1,0 +1,15 @@
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\05-exercise\05-exercise\bin\Debug\net6.0\05-exercise.exe
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\05-exercise\05-exercise\bin\Debug\net6.0\05-exercise.deps.json
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\05-exercise\05-exercise\bin\Debug\net6.0\05-exercise.runtimeconfig.json
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\05-exercise\05-exercise\bin\Debug\net6.0\05-exercise.dll
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\05-exercise\05-exercise\bin\Debug\net6.0\05-exercise.pdb
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\05-exercise\05-exercise\obj\Debug\net6.0\05-exercise.csproj.AssemblyReference.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\05-exercise\05-exercise\obj\Debug\net6.0\05-exercise.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\05-exercise\05-exercise\obj\Debug\net6.0\05-exercise.AssemblyInfoInputs.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\05-exercise\05-exercise\obj\Debug\net6.0\05-exercise.AssemblyInfo.cs
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\05-exercise\05-exercise\obj\Debug\net6.0\05-exercise.csproj.CoreCompileInputs.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\05-exercise\05-exercise\obj\Debug\net6.0\05-exercise.dll
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\05-exercise\05-exercise\obj\Debug\net6.0\refint\05-exercise.dll
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\05-exercise\05-exercise\obj\Debug\net6.0\05-exercise.pdb
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\05-exercise\05-exercise\obj\Debug\net6.0\05-exercise.genruntimeconfig.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\05-exercise\05-exercise\obj\Debug\net6.0\ref\05-exercise.dll
