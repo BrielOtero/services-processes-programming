@@ -1,0 +1,17 @@
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\03-exercise\02-exercise\bin\Debug\net6.0-windows\03-exercise.exe
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\03-exercise\02-exercise\bin\Debug\net6.0-windows\03-exercise.deps.json
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\03-exercise\02-exercise\bin\Debug\net6.0-windows\03-exercise.runtimeconfig.json
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\03-exercise\02-exercise\bin\Debug\net6.0-windows\03-exercise.dll
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\03-exercise\02-exercise\bin\Debug\net6.0-windows\03-exercise.pdb
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\03-exercise\02-exercise\obj\Debug\net6.0-windows\03-exercise.csproj.AssemblyReference.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\03-exercise\02-exercise\obj\Debug\net6.0-windows\_02_exercise.Form1.resources
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\03-exercise\02-exercise\obj\Debug\net6.0-windows\03-exercise.csproj.GenerateResource.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\03-exercise\02-exercise\obj\Debug\net6.0-windows\03-exercise.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\03-exercise\02-exercise\obj\Debug\net6.0-windows\03-exercise.AssemblyInfoInputs.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\03-exercise\02-exercise\obj\Debug\net6.0-windows\03-exercise.AssemblyInfo.cs
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\03-exercise\02-exercise\obj\Debug\net6.0-windows\03-exercise.csproj.CoreCompileInputs.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\03-exercise\02-exercise\obj\Debug\net6.0-windows\03-exercise.dll
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\03-exercise\02-exercise\obj\Debug\net6.0-windows\refint\03-exercise.dll
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\03-exercise\02-exercise\obj\Debug\net6.0-windows\03-exercise.pdb
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\03-exercise\02-exercise\obj\Debug\net6.0-windows\03-exercise.genruntimeconfig.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\01-multithreading\03-exercise\02-exercise\obj\Debug\net6.0-windows\ref\03-exercise.dll
