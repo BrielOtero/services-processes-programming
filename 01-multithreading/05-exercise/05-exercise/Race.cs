@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define TEST
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,17 +38,6 @@ namespace _05_exercise
             int userBet;
 
             userBet = m.SubMenu("Choose your WINNER", true, names);
-
-            for (int i = 0; i < horses.Length; i++)
-            {
-                threads[i] = new Thread(horseMovement);
-            }
-
-            for (int i = 0; i < threads.Length; i++)
-            {
-                threads[i].Start(i);
-            }
-
             for (int i = 0; i < floorLength; i++)
             {
                 Console.SetCursorPosition(i, horses.Length);
@@ -66,6 +56,17 @@ namespace _05_exercise
                 Console.SetCursorPosition(Console.WindowWidth - names[k].Length, k);
                 Console.WriteLine(names[k]);
             }
+
+            for (int i = 0; i < horses.Length; i++)
+            {
+                threads[i] = new Thread(horseMovement);
+            }
+
+            for (int i = 0; i < horses.Length; i++)
+            {
+                threads[i].Start(i);
+            }
+
 
 
             lock (mainLock)
@@ -98,7 +99,7 @@ namespace _05_exercise
                 {
                     lock (l)
                     {
-                        if (!winner)
+                        if (horses[i].position < floorLength && !winner)
                         {
                             horses[i].Run();
                             clearConsoleLine(horses[i].line, margin);
@@ -112,9 +113,18 @@ namespace _05_exercise
                             Monitor.Pulse(mainLock);
                         }
 
-                        Monitor.Pulse(l);
                     }
                 }
+#if TEST
+            Thread.Sleep(100);
+        
+#else
+                Random r = new Random();
+                Thread.Sleep(r.Next(1, 3) * 100);
+
+#endif
+
+
             }
         }
 

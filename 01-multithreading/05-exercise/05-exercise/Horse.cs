@@ -20,13 +20,16 @@ namespace _05_exercise
 
         public void Run()
         {
-            Random r = new Random();
+
 #if TEST
             position++;
+        
 #else
+            Random r = new Random();
             position += r.Next(1, 5);
+
 #endif
-            Thread.Sleep(r.Next(1, 3) * 100);
+
         }
     }
 

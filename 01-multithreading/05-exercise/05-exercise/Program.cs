@@ -8,7 +8,7 @@ namespace _05_exercise
         {
             Menu m = new Menu();
             int menu;
-            string[] names = new string[] { "Perdigon", "Pegaso", "Troya", "Rocinante", "Spirit" };
+            string[] names = new string[] { "Curro", "Javi", "David", "Marisabel", "Juan" };
             string[] menuOptions = new string[] { "Play", "Exit" };
 
             Race r = new Race(names);

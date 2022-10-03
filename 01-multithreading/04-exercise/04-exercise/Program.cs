@@ -11,14 +11,24 @@
             new Thread(() =>
             {
 
+                while (value < obj && value > -obj)
+                {
+                    lock (l)
+                    {
+                        if (value < obj && value > -obj)
+                        {
+                            value++;
+                            Console.SetCursorPosition(0, 0);
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"Thread 1 -> {value,5}");
+                        }
+
+                    }
+                }
+
+
                 lock (l)
                 {
-                    while (value != obj)
-                    {
-                        value++;
-                        Console.SetCursorPosition(0, 0);
-                        Console.Write($"Thread 1 -> {value,5}");
-                    }
                     Monitor.Pulse(l);
                 }
 
@@ -27,18 +37,27 @@
 
             new Thread(() =>
             {
-                lock (l)
-                {
-                    while (value != (obj * -1))
-                    {
-                        value--;
-                        Console.SetCursorPosition(0, 0);
-                        Console.Write($"Thread 2 -> {value,5}");
-                    }
 
-                    Monitor.Pulse(l);
+                while (value < obj && value > -obj)
+                {
+                    lock (l)
+                    {
+                        if (value < obj && value > -obj)
+                        {
+
+                            value--;
+                            Console.SetCursorPosition(0, 0);
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine($"Thread 2 -> {value,5}");
+                        }
+                    }
                 }
 
+                lock (l)
+                {
+                    Monitor.Pulse(l);
+
+                }
 
             }).Start();
 
@@ -47,8 +66,9 @@
             {
                 Monitor.Wait(l);
             }
-            Console.Clear();
+
             Console.WriteLine($"{(value == obj ? "Thread 1" : "Thread 2")} WINS!!!!");
+            Console.ReadKey();
 
         }
 

@@ -42,7 +42,14 @@
 
                 if (correct && menu != exitValue)
                 {
-                    myDelegates[menu].Invoke();
+                    if (menu < options.Length)
+                    {
+                        myDelegates[menu].Invoke();
+                    }
+                    else
+                    {
+                        correct = false;
+                    }
                 }
 
             } while (menu != exitValue);
@@ -64,7 +71,6 @@
         static void Main(string[] args)
         {
             MenuGenerator(new string[] { "Op1", "Op2", "Op3" }, new MyDelegate[] { () => Console.WriteLine("A"), () => Console.WriteLine("B"), () => Console.WriteLine("C") });
-            Console.ReadKey();
         }
 
     }

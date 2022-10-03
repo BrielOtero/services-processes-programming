@@ -16,10 +16,7 @@ namespace _01_exercise
                 Console.ResetColor();
             });
 
-            int res = Array.FindLastIndex(v, (x) =>
-            {
-                return x >= 5;
-            });
+            int res = Array.FindLastIndex(v, x => x >= 5 );
 
             Console.WriteLine($"\nThe last passing student is number {res + 1} in the list.");
 
@@ -27,7 +24,7 @@ namespace _01_exercise
 
             Array.ForEach(v, (x) =>
             {
-                Console.WriteLine($"Before {x,2} | After {1 / x,2}");
+                Console.WriteLine($"Before {x,2} | After {1.0 / x,2}");
             });
 
             Console.ReadKey();
