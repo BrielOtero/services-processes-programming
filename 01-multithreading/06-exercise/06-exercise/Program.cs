@@ -17,7 +17,7 @@
             {
                 Console.WriteLine("Press any key to start.");
                 Console.ReadKey();
-                t.Run();
+                t.Start();
                 Console.WriteLine("Press any key to pause.");
                 Console.ReadKey();
                 t.Pause();

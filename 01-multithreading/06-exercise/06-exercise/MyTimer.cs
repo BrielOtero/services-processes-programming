@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace _06_exercise
 {
 
-    public delegate void Execution(Object a);
+    public delegate void Execution();
 
 
     internal class MyTimer
@@ -15,36 +15,44 @@ namespace _06_exercise
         private static readonly object l = new object();
         public int interval;
         private Thread t;
-        Action exe;
+        private bool finish = false;
+        private Execution exe;
 
-
-        public MyTimer(Action a)
+        public MyTimer(Execution exe)
         {
-            exe = a;
-            t = new Thread(a.Invoke);
+            this.exe = exe;
+            t = new Thread(Runtime);
+            t.Start();
         }
 
-        public void Pause()
+        public void Runtime()
         {
             lock (l)
             {
                 Monitor.Wait(l);
             }
-        }
 
-        public void Run()
+
+            while (!finish)
+            {
+                exe.Invoke();
+                Thread.Sleep(interval);
+            }
+            Runtime();
+        }
+        public void Start()
         {
-            t.Start();
+            finish = false;
 
             lock (l)
             {
-                do
-                {
-                    exe.Invoke();
-                    Thread.Sleep(interval);
-                    Monitor.Pulse(l);
-                } while (true);
+                Monitor.Pulse(l);
             }
+        }
+
+        public void Pause()
+        {
+            finish = true;
 
         }
 

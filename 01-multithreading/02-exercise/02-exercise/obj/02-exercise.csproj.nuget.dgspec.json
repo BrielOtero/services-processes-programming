@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\New folder\\02-exercise\\02-exercise\\02-exercise.csproj": {}
+    "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\02-exercise\\02-exercise\\02-exercise.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\New folder\\02-exercise\\02-exercise\\02-exercise.csproj": {
+    "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\02-exercise\\02-exercise\\02-exercise.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\New folder\\02-exercise\\02-exercise\\02-exercise.csproj",
+        "projectUniqueName": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\02-exercise\\02-exercise\\02-exercise.csproj",
         "projectName": "02-exercise",
-        "projectPath": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\New folder\\02-exercise\\02-exercise\\02-exercise.csproj",
+        "projectPath": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\02-exercise\\02-exercise\\02-exercise.csproj",
         "packagesPath": "C:\\Users\\Gabriel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\New folder\\02-exercise\\02-exercise\\obj\\",
+        "outputPath": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\02-exercise\\02-exercise\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Gabriel\\AppData\\Roaming\\NuGet\\NuGet.Config",
