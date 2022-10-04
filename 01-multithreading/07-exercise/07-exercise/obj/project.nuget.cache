@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "onzrWmbE05l/9SMcOTvCDAjwYtbqXe7jrshGMMhUB1T9GgJqIBbmomFbENf921IHzx1ztd44wxZKQSZRKoh6aw==",
+  "dgSpecHash": "h1ubWwij3AXnPCMS/61Ew8UacaTbTkrMM8pAEYnIeubrn5xA1kS/bOQxLjQ0qH3d7gL6WiK73D7E163wZzw8XQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\07-exercise\\07-exercise\\07-exercise.csproj",
+  "projectFilePath": "C:\\git\\Services-Processes-Programming\\01-multithreading\\07-exercise\\07-exercise\\07-exercise.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
