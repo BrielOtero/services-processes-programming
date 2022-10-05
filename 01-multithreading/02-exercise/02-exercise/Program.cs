@@ -44,7 +44,10 @@
                 {
                     if (menu < options.Length)
                     {
-                        myDelegates[menu].Invoke();
+                        if (menu < myDelegates.Length)
+                        {
+                            myDelegates[menu]();
+                        }
                     }
                     else
                     {
@@ -70,7 +73,7 @@
         }
         static void Main(string[] args)
         {
-            MenuGenerator(new string[] { "Op1", "Op2", "Op3" }, new MyDelegate[] { () => Console.WriteLine("A"), () => Console.WriteLine("B"), () => Console.WriteLine("C") });
+            MenuGenerator(new string[] { "Op1", "Op2", "Op3", "op4" }, new MyDelegate[] { () => Console.WriteLine("A"), () => Console.WriteLine("B"), () => Console.WriteLine("C"), /*() => Console.WriteLine("D") */});
         }
 
     }

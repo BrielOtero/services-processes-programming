@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
 
@@ -62,8 +63,19 @@ namespace _02_exercise
                         foreach (ProcessThread subp in pt)
                         {
                             subpId = cutString(subp.Id.ToString(), 6);
-                            subpStartTime = cutString(subp.StartTime.ToString(), 10);
-                            textBox1.AppendText($"\t{"PID",-4}  {subpId,-6}  {"Start Time",-10}  {subpStartTime,-10}" + Environment.NewLine);
+                            try
+                            {
+
+                                subpStartTime = cutString(subp.StartTime.ToString(), 10);
+                                textBox1.AppendText($"\t{"PID",-4}  {subpId,-6}  {"Start Time",-10}  {subpStartTime,-10}" + Environment.NewLine);
+
+                            }
+                            catch (Win32Exception)
+                            {
+                                textBox1.Clear();
+                                Trace.WriteLine("Denied");
+                                return;
+                            }
                         }
                     }
 
@@ -128,7 +140,16 @@ namespace _02_exercise
 
             if (find)
             {
-                processes[0].Kill();
+                try
+                {
+
+                    processes[0].Kill();
+                }
+                catch (Win32Exception)
+                {
+                    Trace.WriteLine("Denied");
+                    return;
+                }
             }
         }
 
