@@ -24,7 +24,6 @@ namespace _06_exercise
             t = new Thread(Runtime);
             t.Start();
         }
-
         public void Runtime()
         {
             lock (l)
