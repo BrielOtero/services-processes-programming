@@ -10,6 +10,13 @@
             bool correct = true;
             int menu;
             int exitValue = options.Length;
+
+            if (options != null || myDelegates != null || options.Length != myDelegates.Length)
+            {
+                Console.WriteLine("Menu not valid");
+                return;
+            }
+
             do
             {
 
@@ -44,10 +51,8 @@
                 {
                     if (menu < options.Length)
                     {
-                        if (menu < myDelegates.Length)
-                        {
-                            myDelegates[menu]();
-                        }
+                        myDelegates[menu]();
+
                     }
                     else
                     {
