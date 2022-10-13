@@ -15,20 +15,24 @@ namespace _06_exercise
         private static readonly object l = new object();
         public int interval;
         private Thread t;
-        private bool finish = false;
+        private bool finish = true;
         private Execution exe;
 
         public MyTimer(Execution exe)
         {
             this.exe = exe;
             t = new Thread(Runtime);
+            t.IsBackground = true;
             t.Start();
         }
         public void Runtime()
         {
             lock (l)
             {
-                Monitor.Wait(l);
+                if (finish)
+                {
+                    Monitor.Wait(l);
+                }
             }
 
 
@@ -39,20 +43,22 @@ namespace _06_exercise
             }
             Runtime();
         }
-        public void Start()
+        public void Run()
         {
-            finish = false;
 
             lock (l)
             {
+                finish = false;
                 Monitor.Pulse(l);
             }
         }
 
         public void Pause()
         {
-            finish = true;
-
+            lock (l)
+            {
+                finish = true;
+            }
         }
 
 
