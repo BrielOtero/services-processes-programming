@@ -145,7 +145,7 @@ namespace _07_exercise
                         Console.SetCursorPosition(5, (int)index);
                         Console.WriteLine(animation[cont]);
                     }
-                        Thread.Sleep(200);
+                    Thread.Sleep(200);
                 }
             }
 
