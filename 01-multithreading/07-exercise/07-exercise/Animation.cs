@@ -17,7 +17,6 @@ namespace _07_exercise
         private bool finish = false;
         private bool firstBoot = true;
         private int cont = 0;
-        private int win = 20;
         private bool playAnimation = true;
         public void Start()
         {
@@ -55,10 +54,11 @@ namespace _07_exercise
                                 }
                             }
                         }
-
+                        Monitor.Pulse(l);
                     }
                     firstBoot = false;
                     Thread.Sleep(randTime);
+
                 }
 
                 clearConsoleLine(0, 0);
@@ -95,6 +95,7 @@ namespace _07_exercise
                                 }
                                 else
                                 {
+
                                     if (!firstBoot)
                                     {
                                         cont += -5;
@@ -103,10 +104,11 @@ namespace _07_exercise
                                 }
                             }
                         }
-
+                        Monitor.Pulse(l);
                     }
                     firstBoot = false;
                     Thread.Sleep(randTime);
+
                 }
 
                 clearConsoleLine(2, 0);
@@ -117,6 +119,7 @@ namespace _07_exercise
 
 
             Thread display = new Thread(animationRuntime);
+            display.IsBackground = true;
             display.Start(1);
 
         }
@@ -127,8 +130,12 @@ namespace _07_exercise
 
             while (cont < 20 && cont > -20)
             {
+                lock (l)
+                {
+                    Monitor.Wait(l);
+                }
 
-                while (playAnimation)
+                if (playAnimation)
                 {
                     lock (l)
                     {
@@ -147,6 +154,7 @@ namespace _07_exercise
                     }
                     Thread.Sleep(200);
                 }
+
             }
 
         }
