@@ -34,6 +34,7 @@ namespace _07_exercise
                         {
                             rand = r.Next(1, 11);
                             randTime = r.Next(100, 100 * rand);
+                            randTime += 2000;
                             Console.CursorVisible = false;
                             clearConsoleLine(0, 0);
                             Console.SetCursorPosition(0, 0);
@@ -54,7 +55,6 @@ namespace _07_exercise
                                 }
                             }
                         }
-                        Monitor.Pulse(l);
                     }
                     firstBoot = false;
                     Thread.Sleep(randTime);
@@ -81,6 +81,7 @@ namespace _07_exercise
                         {
                             rand = r.Next(1, 11);
                             randTime = r.Next(100, 100 * rand);
+                            randTime += 2000;
                             Console.CursorVisible = false;
                             clearConsoleLine(2, 0);
                             Console.SetCursorPosition(0, 2);
@@ -92,6 +93,7 @@ namespace _07_exercise
                                     playAnimation = true;
                                     cont--;
                                     Console.Write(" -1");
+                                    Monitor.Pulse(l);
                                 }
                                 else
                                 {
@@ -104,7 +106,8 @@ namespace _07_exercise
                                 }
                             }
                         }
-                        Monitor.Pulse(l);
+                        // Monitor.Pulse(l);
+
                     }
                     firstBoot = false;
                     Thread.Sleep(randTime);
@@ -130,32 +133,30 @@ namespace _07_exercise
 
             while (cont < 20 && cont > -20)
             {
+
                 lock (l)
                 {
-                    Monitor.Wait(l);
-                }
-
-                if (playAnimation)
-                {
-                    lock (l)
+                    if (!playAnimation)
                     {
-
-                        if (cont < 3)
-                        {
-                            cont++;
-                        }
-                        else
-                        {
-                            cont = 0;
-                        }
-                        Console.CursorVisible = false;
-                        Console.SetCursorPosition(5, (int)index);
-                        Console.WriteLine(animation[cont]);
+                        Monitor.Wait(l);
                     }
-                    Thread.Sleep(200);
-                }
 
+                    if (cont < 3)
+                    {
+                        cont++;
+                    }
+                    else
+                    {
+                        cont = 0;
+                    }
+                    Console.CursorVisible = false;
+                    Console.SetCursorPosition(5, (int)index);
+                    Console.WriteLine(animation[cont]);
+                }
+                Thread.Sleep(200);
             }
+
+
 
         }
 
