@@ -38,17 +38,19 @@
             // 
             this.txtPath.Location = new System.Drawing.Point(12, 12);
             this.txtPath.Name = "txtPath";
-            this.txtPath.Size = new System.Drawing.Size(100, 23);
+            this.txtPath.PlaceholderText = "INSERT NEW PATH";
+            this.txtPath.Size = new System.Drawing.Size(277, 23);
             this.txtPath.TabIndex = 0;
             // 
             // btnChangePath
             // 
-            this.btnChangePath.Location = new System.Drawing.Point(131, 12);
+            this.btnChangePath.Location = new System.Drawing.Point(313, 12);
             this.btnChangePath.Name = "btnChangePath";
             this.btnChangePath.Size = new System.Drawing.Size(86, 23);
             this.btnChangePath.TabIndex = 1;
             this.btnChangePath.Text = "Change Path";
             this.btnChangePath.UseVisualStyleBackColor = true;
+            this.btnChangePath.Click += new System.EventHandler(this.btnChangePath_Click);
             // 
             // lstSubdirectories
             // 
@@ -70,6 +72,7 @@
             // 
             // Form1
             // 
+            this.AcceptButton = this.btnChangePath;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
