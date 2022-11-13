@@ -8,19 +8,19 @@
     "net6.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Gabriel\\.nuget\\packages\\": {}
+    "C:\\Users\\ID\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\02-files\\01-exercise\\01-exercise\\01-exercise.csproj",
+      "projectUniqueName": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\02-files\\01-exercise\\01-exercise\\01-exercise.csproj",
       "projectName": "01-exercise",
-      "projectPath": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\02-files\\01-exercise\\01-exercise\\01-exercise.csproj",
-      "packagesPath": "C:\\Users\\Gabriel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\02-files\\01-exercise\\01-exercise\\obj\\",
+      "projectPath": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\02-files\\01-exercise\\01-exercise\\01-exercise.csproj",
+      "packagesPath": "C:\\Users\\ID\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\02-files\\01-exercise\\01-exercise\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Gabriel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ID\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -64,7 +64,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100-rc.2.22477.23\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
