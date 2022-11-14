@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace _01_02_03_04_exercise
 {
-    internal class Write
+    internal class Write:BinaryWriter
     {
+        public void Write()
     }
 }
