@@ -33,6 +33,8 @@
             this.lstSubdirectories = new System.Windows.Forms.ListBox();
             this.lstFiles = new System.Windows.Forms.ListBox();
             this.lblSizeInfo = new System.Windows.Forms.Label();
+            this.lblPath = new System.Windows.Forms.Label();
+            this.lblFiles = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtPath
@@ -85,12 +87,33 @@
             this.lblSizeInfo.Size = new System.Drawing.Size(0, 15);
             this.lblSizeInfo.TabIndex = 4;
             // 
+            // lblPath
+            // 
+            this.lblPath.AutoSize = true;
+            this.lblPath.Location = new System.Drawing.Point(12, 71);
+            this.lblPath.Name = "lblPath";
+            this.lblPath.Size = new System.Drawing.Size(36, 15);
+            this.lblPath.TabIndex = 5;
+            this.lblPath.Text = "Paths";
+            // 
+            // lblFiles
+            // 
+            this.lblFiles.AutoSize = true;
+            this.lblFiles.Location = new System.Drawing.Point(758, 71);
+            this.lblFiles.Name = "lblFiles";
+            this.lblFiles.Size = new System.Drawing.Size(30, 15);
+            this.lblFiles.TabIndex = 6;
+            this.lblFiles.Text = "Files";
+            this.lblFiles.Click += new System.EventHandler(this.lblFiles_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btnChangePath;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblFiles);
+            this.Controls.Add(this.lblPath);
             this.Controls.Add(this.lblSizeInfo);
             this.Controls.Add(this.lstFiles);
             this.Controls.Add(this.lstSubdirectories);
@@ -113,5 +136,7 @@
         private ListBox lstSubdirectories;
         private ListBox lstFiles;
         private Label lblSizeInfo;
+        private Label lblPath;
+        private Label lblFiles;
     }
 }

@@ -33,3 +33,4 @@ C:\Users\ID\git\Class\Services-Processes-Programming\02-files\01-exercise\01-exe
 C:\Users\ID\git\Class\Services-Processes-Programming\02-files\01-exercise\01-exercise\obj\Debug\net6.0-windows\01-exercise.genruntimeconfig.cache
 C:\Users\ID\git\Class\Services-Processes-Programming\02-files\01-exercise\01-exercise\obj\Debug\net6.0-windows\ref\01-exercise.dll
 C:\Users\ID\git\Class\Services-Processes-Programming\02-files\01-exercise\01-exercise\obj\Debug\net6.0-windows\_01_exercise.TxtFormContent.resources
+C:\Users\Gabriel\git\Services-Processes-Programming\02-files\01-exercise\01-exercise\obj\Debug\net6.0-windows\_01_exercise.TxtFormContent.resources
