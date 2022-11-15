@@ -102,22 +102,20 @@ namespace _01_02_03_04_exercise
 
             try
             {
-
-         
-            using (WriteDataFiles w = new WriteDataFiles(employeePath, executivePath))
-            {
-                foreach (var item in ui.pm.people)
+                using (WriteDataFiles w = new WriteDataFiles(employeePath, executivePath))
                 {
-                    if (item.GetType() == typeof(Executive))
+                    foreach (var item in ui.pm.people)
                     {
-                        w.WDataExecutive.Write((Executive)item);
-                    }
-                    else
-                    {
-                        w.WDataEmployee.Write((Employee)item);
+                        if (item.GetType() == typeof(Executive))
+                        {
+                            w.WDataExecutive.Write((Executive)item);
+                        }
+                        else
+                        {
+                            w.WDataEmployee.Write((Employee)item);
+                        }
                     }
                 }
-            }
             }
             catch (FileNotFoundException)
             {
@@ -157,8 +155,8 @@ namespace _01_02_03_04_exercise
         {
             public WriteDataFiles(string employeePath, string executivePath)
             {
-                wDataEmployee = new WriteData(new FileStream(employeePath, FileMode.OpenOrCreate));
-                wDataExecutive = new WriteData(new FileStream(executivePath, FileMode.OpenOrCreate));
+                wDataEmployee = new WriteData(new FileStream(employeePath, FileMode.Create));
+                wDataExecutive = new WriteData(new FileStream(executivePath, FileMode.Create));
             }
 
             static WriteData wDataEmployee;
