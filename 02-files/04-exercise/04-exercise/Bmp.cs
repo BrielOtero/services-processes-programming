@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _01_02_03_04_exercise
+namespace _04_exercise
 {
-    internal class Write:BinaryWriter
+    internal class Bmp
     {
-        public void Write()
+        string bmpPath;
+
     }
 }

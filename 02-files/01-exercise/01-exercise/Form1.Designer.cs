@@ -104,7 +104,6 @@
             this.lblFiles.Size = new System.Drawing.Size(30, 15);
             this.lblFiles.TabIndex = 6;
             this.lblFiles.Text = "Files";
-            this.lblFiles.Click += new System.EventHandler(this.lblFiles_Click);
             // 
             // Form1
             // 

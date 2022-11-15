@@ -13,6 +13,8 @@ namespace _01_02_03_04_exercise
         private int dependents;
         private double winPasta;
 
+        
+
         public int Dependents
         {
             get => dependents;
@@ -33,6 +35,8 @@ namespace _01_02_03_04_exercise
                 dependents = value;
             }
         }
+
+        public string DepartmentName { get => departmentName; set => departmentName = value; }
 
         public Executive()
             : this("", "", 0, "", "", 0)

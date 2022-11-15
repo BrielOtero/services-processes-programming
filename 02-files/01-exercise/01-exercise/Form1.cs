@@ -52,8 +52,8 @@ namespace _01_exercise
 
             DirectoryInfo[] subDirectories = currentDirInfo.GetDirectories();
 
-            bool areParent = currentDirInfo.Parent == null ? false : true;
-            bool areSubDirectories = subDirectories.Length > 0 ? true : false;
+            bool areParent = currentDirInfo.Parent != null;
+            bool areSubDirectories = subDirectories.Length > 0;
 
             if (areParent)
             {
@@ -85,7 +85,10 @@ namespace _01_exercise
 
             try
             {
-                updateCurrentPath(currentDirs[lstSubdirectories.SelectedItem.ToString()]);
+                if (lstSubdirectories.SelectedItem != null)
+                {
+                    updateCurrentPath(currentDirs[lstSubdirectories.SelectedItem.ToString()]);
+                }
             }
             catch (UnauthorizedAccessException u)
             {
@@ -156,11 +159,6 @@ namespace _01_exercise
                     return $"{size} Bytes";
 
             }
-        }
-
-        private void lblFiles_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -8,19 +8,19 @@
     "net6.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\ID\\.nuget\\packages\\": {}
+    "C:\\Users\\Gabriel\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\02-files\\02-exercise\\02-exercise\\02-exercise.csproj",
+      "projectUniqueName": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\02-files\\02-exercise\\02-exercise\\02-exercise.csproj",
       "projectName": "02-exercise",
-      "projectPath": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\02-files\\02-exercise\\02-exercise\\02-exercise.csproj",
-      "packagesPath": "C:\\Users\\ID\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\02-files\\02-exercise\\02-exercise\\obj\\",
+      "projectPath": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\02-files\\02-exercise\\02-exercise\\02-exercise.csproj",
+      "packagesPath": "C:\\Users\\Gabriel\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\02-files\\02-exercise\\02-exercise\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ID\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Gabriel\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

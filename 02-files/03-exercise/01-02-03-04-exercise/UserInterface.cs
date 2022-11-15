@@ -181,6 +181,7 @@ namespace _01_02_03_04_exercise
                         break;
                 }
             } while (menu != 4);
+
         }
 
         private void searchPerson()
