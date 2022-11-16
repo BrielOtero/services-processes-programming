@@ -14,6 +14,23 @@ namespace _04_exercise
         {
             this.bmpPath = bmpPath; 
         }
+        public void IsBmp()
+        {
+            if (File.Exists(bmpPath))
+            {
+                using (FileStream fs = new FileStream(bmpPath, FileMode.Open))
+                {
+                    string format=fs.re
+                }
+
+            }
+
+        }
+
+        public void InfoBmp()
+        {
+
+        }
 
     }
 }
