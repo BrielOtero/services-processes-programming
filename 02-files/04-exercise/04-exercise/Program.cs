@@ -4,7 +4,8 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Bmp bmp = new Bmp("C:\\Users\\Gabriel\\Downloads\\image.bmp");
+            Console.WriteLine(bmp.IsBmp());
         }
     }
 }
