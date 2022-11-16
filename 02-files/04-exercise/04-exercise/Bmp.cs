@@ -10,5 +10,10 @@ namespace _04_exercise
     {
         string bmpPath;
 
+        public Bmp(string bmpPath)
+        {
+            this.bmpPath = bmpPath; 
+        }
+
     }
 }

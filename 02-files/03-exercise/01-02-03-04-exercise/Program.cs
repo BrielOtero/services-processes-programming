@@ -1,5 +1,4 @@
-﻿#define CREATE
-
+﻿
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Xml.Linq;
@@ -19,7 +18,6 @@ namespace _01_02_03_04_exercise
 
             UserInterface ui = new UserInterface();
 
-#if CREATE
             /**
              * Path
              */
@@ -65,8 +63,6 @@ namespace _01_02_03_04_exercise
 
             try
             {
-
-
                 if (File.Exists(executivePath))
                 {
                     using (ReadData rDataExecutive = new ReadData(new FileStream(executivePath, FileMode.Open)))
@@ -91,7 +87,10 @@ namespace _01_02_03_04_exercise
             {
                 Trace.WriteLine("Exception found on executive");
             }
-#endif
+            /**
+            * Program Work
+            */
+
             ui.Start();
 
             /**
@@ -129,6 +128,7 @@ namespace _01_02_03_04_exercise
             {
                 Trace.WriteLine("Exception found on Write Files");
             }
+
         }
 
         private static void createDirectory(string applicationPath)
