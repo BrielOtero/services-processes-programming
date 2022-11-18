@@ -194,7 +194,7 @@ namespace _02_exercise
             {
                 Trace.WriteLine("Error reading file " + e.Message);
             }
-
+            GC.Collect();
         }
 
         private void error(string value)
