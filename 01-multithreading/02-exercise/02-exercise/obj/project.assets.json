@@ -8,26 +8,27 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Gabriel\\.nuget\\packages\\": {}
+    "C:\\Users\\ID\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\02-exercise\\02-exercise\\02-exercise.csproj",
+      "projectUniqueName": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\01-multithreading\\02-exercise\\02-exercise\\02-exercise.csproj",
       "projectName": "02-exercise",
-      "projectPath": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\02-exercise\\02-exercise\\02-exercise.csproj",
-      "packagesPath": "C:\\Users\\Gabriel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\02-exercise\\02-exercise\\obj\\",
+      "projectPath": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\01-multithreading\\02-exercise\\02-exercise\\02-exercise.csproj",
+      "packagesPath": "C:\\Users\\ID\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\01-multithreading\\02-exercise\\02-exercise\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Gabriel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ID\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
@@ -60,7 +61,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

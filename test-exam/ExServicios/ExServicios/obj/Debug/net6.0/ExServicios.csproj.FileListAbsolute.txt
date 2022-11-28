@@ -1,0 +1,15 @@
+C:\Users\bdisa\Desktop\ExServicios\ExServicios\bin\Debug\net6.0\ExServicios.exe
+C:\Users\bdisa\Desktop\ExServicios\ExServicios\bin\Debug\net6.0\ExServicios.deps.json
+C:\Users\bdisa\Desktop\ExServicios\ExServicios\bin\Debug\net6.0\ExServicios.runtimeconfig.json
+C:\Users\bdisa\Desktop\ExServicios\ExServicios\bin\Debug\net6.0\ExServicios.dll
+C:\Users\bdisa\Desktop\ExServicios\ExServicios\bin\Debug\net6.0\ExServicios.pdb
+C:\Users\bdisa\Desktop\ExServicios\ExServicios\obj\Debug\net6.0\ExServicios.csproj.AssemblyReference.cache
+C:\Users\bdisa\Desktop\ExServicios\ExServicios\obj\Debug\net6.0\ExServicios.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\bdisa\Desktop\ExServicios\ExServicios\obj\Debug\net6.0\ExServicios.AssemblyInfoInputs.cache
+C:\Users\bdisa\Desktop\ExServicios\ExServicios\obj\Debug\net6.0\ExServicios.AssemblyInfo.cs
+C:\Users\bdisa\Desktop\ExServicios\ExServicios\obj\Debug\net6.0\ExServicios.csproj.CoreCompileInputs.cache
+C:\Users\bdisa\Desktop\ExServicios\ExServicios\obj\Debug\net6.0\ExServicios.dll
+C:\Users\bdisa\Desktop\ExServicios\ExServicios\obj\Debug\net6.0\refint\ExServicios.dll
+C:\Users\bdisa\Desktop\ExServicios\ExServicios\obj\Debug\net6.0\ExServicios.pdb
+C:\Users\bdisa\Desktop\ExServicios\ExServicios\obj\Debug\net6.0\ExServicios.genruntimeconfig.cache
+C:\Users\bdisa\Desktop\ExServicios\ExServicios\obj\Debug\net6.0\ref\ExServicios.dll

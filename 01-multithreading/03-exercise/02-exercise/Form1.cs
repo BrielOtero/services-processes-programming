@@ -1,7 +1,12 @@
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
+using System.Threading;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
+#nullable disable
 namespace _02_exercise
 {
     public partial class Form1 : Form

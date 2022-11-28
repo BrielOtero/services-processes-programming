@@ -1,0 +1,15 @@
+C:\Users\ID\git\Class\Services-Processes-Programming\test-exam\01-exam\01-exam\obj\Debug\net6.0\01-exam.csproj.AssemblyReference.cache
+C:\Users\ID\git\Class\Services-Processes-Programming\test-exam\01-exam\01-exam\obj\Debug\net6.0\01-exam.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ID\git\Class\Services-Processes-Programming\test-exam\01-exam\01-exam\obj\Debug\net6.0\01-exam.AssemblyInfoInputs.cache
+C:\Users\ID\git\Class\Services-Processes-Programming\test-exam\01-exam\01-exam\obj\Debug\net6.0\01-exam.AssemblyInfo.cs
+C:\Users\ID\git\Class\Services-Processes-Programming\test-exam\01-exam\01-exam\obj\Debug\net6.0\01-exam.csproj.CoreCompileInputs.cache
+C:\Users\ID\git\Class\Services-Processes-Programming\test-exam\01-exam\01-exam\bin\Debug\net6.0\01-exam.exe
+C:\Users\ID\git\Class\Services-Processes-Programming\test-exam\01-exam\01-exam\bin\Debug\net6.0\01-exam.deps.json
+C:\Users\ID\git\Class\Services-Processes-Programming\test-exam\01-exam\01-exam\bin\Debug\net6.0\01-exam.runtimeconfig.json
+C:\Users\ID\git\Class\Services-Processes-Programming\test-exam\01-exam\01-exam\bin\Debug\net6.0\01-exam.dll
+C:\Users\ID\git\Class\Services-Processes-Programming\test-exam\01-exam\01-exam\bin\Debug\net6.0\01-exam.pdb
+C:\Users\ID\git\Class\Services-Processes-Programming\test-exam\01-exam\01-exam\obj\Debug\net6.0\01-exam.dll
+C:\Users\ID\git\Class\Services-Processes-Programming\test-exam\01-exam\01-exam\obj\Debug\net6.0\refint\01-exam.dll
+C:\Users\ID\git\Class\Services-Processes-Programming\test-exam\01-exam\01-exam\obj\Debug\net6.0\01-exam.pdb
+C:\Users\ID\git\Class\Services-Processes-Programming\test-exam\01-exam\01-exam\obj\Debug\net6.0\01-exam.genruntimeconfig.cache
+C:\Users\ID\git\Class\Services-Processes-Programming\test-exam\01-exam\01-exam\obj\Debug\net6.0\ref\01-exam.dll

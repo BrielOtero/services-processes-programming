@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ID\\git\\Services-Processes-Programming\\01-multithreading\\05-exercise\\05-exercise\\05-exercise.csproj",
+      "projectUniqueName": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\01-multithreading\\05-exercise\\05-exercise\\05-exercise.csproj",
       "projectName": "05-exercise",
-      "projectPath": "C:\\Users\\ID\\git\\Services-Processes-Programming\\01-multithreading\\05-exercise\\05-exercise\\05-exercise.csproj",
+      "projectPath": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\01-multithreading\\05-exercise\\05-exercise\\05-exercise.csproj",
       "packagesPath": "C:\\Users\\ID\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ID\\git\\Services-Processes-Programming\\01-multithreading\\05-exercise\\05-exercise\\obj\\",
+      "outputPath": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\01-multithreading\\05-exercise\\05-exercise\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ID\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -27,7 +27,8 @@
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
@@ -60,7 +61,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

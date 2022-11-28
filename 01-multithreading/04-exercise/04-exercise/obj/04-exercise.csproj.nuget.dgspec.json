@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\04-exercise\\04-exercise\\04-exercise.csproj": {}
+    "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\01-multithreading\\04-exercise\\04-exercise\\04-exercise.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\04-exercise\\04-exercise\\04-exercise.csproj": {
+    "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\01-multithreading\\04-exercise\\04-exercise\\04-exercise.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\04-exercise\\04-exercise\\04-exercise.csproj",
+        "projectUniqueName": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\01-multithreading\\04-exercise\\04-exercise\\04-exercise.csproj",
         "projectName": "04-exercise",
-        "projectPath": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\04-exercise\\04-exercise\\04-exercise.csproj",
-        "packagesPath": "C:\\Users\\Gabriel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\01-multithreading\\04-exercise\\04-exercise\\obj\\",
+        "projectPath": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\01-multithreading\\04-exercise\\04-exercise\\04-exercise.csproj",
+        "packagesPath": "C:\\Users\\ID\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\01-multithreading\\04-exercise\\04-exercise\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Gabriel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ID\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
