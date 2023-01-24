@@ -1,0 +1,15 @@
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\01-exercise\01-exercise\bin\Debug\net6.0\01-exercise.exe
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\01-exercise\01-exercise\bin\Debug\net6.0\01-exercise.deps.json
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\01-exercise\01-exercise\bin\Debug\net6.0\01-exercise.runtimeconfig.json
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\01-exercise\01-exercise\bin\Debug\net6.0\01-exercise.dll
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\01-exercise\01-exercise\bin\Debug\net6.0\01-exercise.pdb
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\01-exercise\01-exercise\obj\Debug\net6.0\01-exercise.csproj.AssemblyReference.cache
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\01-exercise\01-exercise\obj\Debug\net6.0\01-exercise.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\01-exercise\01-exercise\obj\Debug\net6.0\01-exercise.AssemblyInfoInputs.cache
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\01-exercise\01-exercise\obj\Debug\net6.0\01-exercise.AssemblyInfo.cs
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\01-exercise\01-exercise\obj\Debug\net6.0\01-exercise.csproj.CoreCompileInputs.cache
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\01-exercise\01-exercise\obj\Debug\net6.0\01-exercise.dll
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\01-exercise\01-exercise\obj\Debug\net6.0\refint\01-exercise.dll
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\01-exercise\01-exercise\obj\Debug\net6.0\01-exercise.pdb
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\01-exercise\01-exercise\obj\Debug\net6.0\01-exercise.genruntimeconfig.cache
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\01-exercise\01-exercise\obj\Debug\net6.0\ref\01-exercise.dll
