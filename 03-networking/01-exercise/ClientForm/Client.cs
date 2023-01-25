@@ -15,22 +15,22 @@ namespace ClientForm
             InitializeComponent();
         }
 
-        private void processCommand(string command)
+        private void ProcessCommand(string command)
         {
             IPEndPoint ie = new IPEndPoint(IPAddress.Parse(IP_SERVER), PORT);
             serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            if (!establishServerConnection(ie, serverSocket))
+            if (!EstablishServerConnection(ie, serverSocket))
             {
                 return;
             }
 
-            communicationWithServer(command);
+            CommunicationWithServer(command);
 
             serverSocket.Close();
         }
 
-        private bool establishServerConnection(IPEndPoint ie, Socket serverSocket)
+        private bool EstablishServerConnection(IPEndPoint ie, Socket serverSocket)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace ClientForm
             return true;
         }
 
-        private void communicationWithServer(string command)
+        private void CommunicationWithServer(string command)
         {
             using (NetworkStream ns = new(serverSocket))
             using (StreamReader sr = new(ns))
@@ -57,6 +57,7 @@ namespace ClientForm
                 try
                 {
                     lblResponse.Text = sr.ReadLine();
+                    lblResponse.Text += "\n"+sr.ReadLine();
 
                 }
                 catch (IOException io)
@@ -68,23 +69,23 @@ namespace ClientForm
         }
 
 
-        private void sendCommand(object sender, EventArgs e)
+        private void SendCommand(object sender, EventArgs e)
         {
             string command = (sender as Button).Text.ToLower();
             command = command == "close" ? $"{command} {txtPassword.Text.Trim()}" : command;
 
             Trace.WriteLine("sendCommand: " + command + "<--");
 
-            processCommand(command);
+            ProcessCommand(command);
         }
 
-        private void btnConfig_Click(object sender, EventArgs e)
+        private void BtnConfig_Click(object sender, EventArgs e)
         {
             Config config = new(IP_SERVER, PORT);
             if (config.ShowDialog() == DialogResult.Yes)
             {
-                IP_SERVER = config.ip_server;
-                PORT = config.port;
+                IP_SERVER = config.IP_Server;
+                PORT = config.Port;
             }
         }
     }

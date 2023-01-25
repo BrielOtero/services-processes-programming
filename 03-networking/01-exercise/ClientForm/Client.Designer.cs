@@ -48,7 +48,7 @@
             btnTime.TabIndex = 0;
             btnTime.Text = "TIME";
             btnTime.UseVisualStyleBackColor = true;
-            btnTime.Click += sendCommand;
+            btnTime.Click += SendCommand;
             // 
             // btnDate
             // 
@@ -58,7 +58,7 @@
             btnDate.TabIndex = 1;
             btnDate.Text = "DATE";
             btnDate.UseVisualStyleBackColor = true;
-            btnDate.Click += sendCommand;
+            btnDate.Click += SendCommand;
             // 
             // btnAll
             // 
@@ -68,7 +68,7 @@
             btnAll.TabIndex = 2;
             btnAll.Text = "ALL";
             btnAll.UseVisualStyleBackColor = true;
-            btnAll.Click += sendCommand;
+            btnAll.Click += SendCommand;
             // 
             // btnClose
             // 
@@ -78,7 +78,7 @@
             btnClose.TabIndex = 3;
             btnClose.Text = "CLOSE";
             btnClose.UseVisualStyleBackColor = true;
-            btnClose.Click += sendCommand;
+            btnClose.Click += SendCommand;
             // 
             // txtPassword
             // 
@@ -89,9 +89,9 @@
             // 
             // lblResponse
             // 
-            lblResponse.Location = new Point(39, 184);
+            lblResponse.Location = new Point(39, 159);
             lblResponse.Name = "lblResponse";
-            lblResponse.Size = new Size(357, 25);
+            lblResponse.Size = new Size(357, 50);
             lblResponse.TabIndex = 5;
             lblResponse.Text = "Waiting for response";
             lblResponse.TextAlign = ContentAlignment.MiddleCenter;
@@ -122,7 +122,7 @@
             btnConfig.TabIndex = 8;
             btnConfig.Text = "CONFIG";
             btnConfig.UseVisualStyleBackColor = true;
-            btnConfig.Click += btnConfig_Click;
+            btnConfig.Click += BtnConfig_Click;
             // 
             // lblConfigInfo
             // 
@@ -151,7 +151,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "Client";
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Cliente";
+            Text = "Client";
             ResumeLayout(false);
             PerformLayout();
         }

@@ -13,25 +13,25 @@ namespace ClientForm
 {
     public partial class Config : Form
     {
-        public string ip_server;
-        public int port;
+        public string IP_Server;
+        public int Port;
 
-        public Config(string ip_server, int port)
+        public Config(string ip_Server, int port)
         {
             InitializeComponent();
-            this.ip_server = ip_server;
-            txtIP.Text = ip_server;
-            this.port = port;
+            this.IP_Server = ip_Server;
+            txtIP.Text = ip_Server;
+            this.Port = port;
             txtPort.Text = port.ToString();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
 
-            if (!isIpValid())
+            if (!IsIpValid())
             {
                 MessageBox.Show(this, "The IP isn't valid", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtIP.Text = ip_server;
+                txtIP.Text = IP_Server;
                 return;
             }
 
@@ -39,23 +39,23 @@ namespace ClientForm
             this.Close();
         }
 
-        private bool isIpValid() => IPAddress.TryParse(ip_server, out IPAddress a);
+        private bool IsIpValid() => IPAddress.TryParse(IP_Server, out IPAddress a);
 
-        private void txtIP_TextChanged(object sender, EventArgs e)
+        private void TxtIP_TextChanged(object sender, EventArgs e)
         {
-            ip_server = txtIP.Text;
+            IP_Server = txtIP.Text;
         }
 
-        private void txtPort_TextChanged(object sender, EventArgs e)
+        private void TxtPort_TextChanged(object sender, EventArgs e)
         {
             if (!int.TryParse(txtPort.Text, out int p))
             {
                 MessageBox.Show(this,"The PORT isn't valid", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPort.Text = port.ToString();
+                txtPort.Text = Port.ToString();
                 return;
             }
 
-            port = p;
+            Port = p;
         }
     }
 }

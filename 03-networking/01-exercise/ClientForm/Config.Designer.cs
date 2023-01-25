@@ -59,7 +59,7 @@
             txtIP.Name = "txtIP";
             txtIP.Size = new Size(100, 23);
             txtIP.TabIndex = 2;
-            txtIP.TextChanged += txtIP_TextChanged;
+            txtIP.TextChanged += TxtIP_TextChanged;
             // 
             // txtPort
             // 
@@ -67,7 +67,7 @@
             txtPort.Name = "txtPort";
             txtPort.Size = new Size(100, 23);
             txtPort.TabIndex = 3;
-            txtPort.TextChanged += txtPort_TextChanged;
+            txtPort.TextChanged += TxtPort_TextChanged;
             // 
             // btnSave
             // 

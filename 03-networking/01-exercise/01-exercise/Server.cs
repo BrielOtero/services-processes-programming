@@ -19,19 +19,16 @@ namespace _01_exercise
     internal class Server
     {
         private const int PORT = 31416;
-        private string PASSWORD_PATH = Path.Combine(Environment.GetEnvironmentVariable("APPDATA").ToString(), "password.txt");
+        private readonly string PASSWORD_PATH = Path.Combine(Environment.GetEnvironmentVariable("APPDATA").ToString(), "password.txt");
         private IPEndPoint? ie;
 
         private Socket? socketServer;
         private Socket? socketClient;
 
-
-
-
-
         public void StartServer()
         {
             ie = new IPEndPoint(IPAddress.Any, PORT);
+            Console.WriteLine("Start server");
 
             using (socketServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
             {
@@ -39,6 +36,7 @@ namespace _01_exercise
                 try
                 {
                     socketServer.Bind(ie);
+                    Console.WriteLine("Bind establish");
                 }
                 catch (SocketException s)
                 {
@@ -52,14 +50,15 @@ namespace _01_exercise
                 }
 
                 socketServer.Listen(10);
-                waitForConnection();
+                WaitForConnection();
             }
 
 
         }
 
-        public void waitForConnection()
+        public void WaitForConnection()
         {
+            Console.WriteLine("Waiting for connection");
             while (true)
             {
                 using (socketClient = socketServer?.Accept())
@@ -67,12 +66,12 @@ namespace _01_exercise
                 using (StreamReader sr = new(ns))
                 using (StreamWriter sw = new(ns))
                 {
-                    while (waitForCommand(sr, sw)) ;
+                    WaitForCommand(sr, sw);
                 }
             }
         }
 
-        private bool waitForCommand(StreamReader sr, StreamWriter sw)
+        private void WaitForCommand(StreamReader sr, StreamWriter sw)
         {
             string? command;
 
@@ -82,54 +81,71 @@ namespace _01_exercise
 
                 if (string.IsNullOrEmpty(command))
                 {
-                    return true;
+                    return;
                 }
 
-                int response = tryExecuteCommand(command, sw);
+                int response = TryExecuteCommand(command, sw);
 
-                return proccessCommandResponse(sw, response);
+                ProcessCommandResponse(sw, response);
 
             }
             catch (IOException io)
             {
                 Trace.WriteLine(io.Message);
-                return false;
             }
         }
 
-        private static bool proccessCommandResponse(StreamWriter sw, int response)
+        private void ProcessCommandResponse(StreamWriter sw, int response)
         {
+            string message;
+
             switch (response)
             {
                 case 0:
-                    sw.WriteLine("Disconnected succesfully");
+                    message = "Disconnected succesfully";
+                    Console.WriteLine(message);
+
+                    sw.WriteLine(message);
                     sw.Flush();
-                    return false;
+                    break;
                 case 1:
-                    sw.WriteLine("The command is not defined");
+                    message = "The command is not defined";
+                    Console.WriteLine(message);
+
+                    sw.WriteLine(message);
                     sw.Flush();
-                    return true;
+                    goto case 0;
                 case 2:
-                    sw.WriteLine("The password is incorrect");
+                    message = "The password is incorrect";
+                    Console.WriteLine(message);
+
+                    sw.WriteLine(message);
                     sw.Flush();
-                    return true;
+                    goto case 0;
                 case 3:
-                    sw.WriteLine("There isn't password, you must send close and password");
+                    message = "There isn't password, you must send close and password";
+                    Console.WriteLine(message);
+
+                    sw.WriteLine(message);
                     sw.Flush();
-                    return true;
+                    goto case 0;
                 case 4:
-                    sw.WriteLine("Sorry the programmer who made me forgot to create the password. I recommend you go insult him!");
+                    message = "Sorry the programmer who made me forgot to create the password. I recommend you go insult him!";
+                    Console.WriteLine(message);
+
+                    sw.WriteLine(message);
                     sw.Flush();
-                    return false;
+                    goto case 0;
 
                 default:
-                    return true;
+                    break;
             }
         }
 
-        private int tryExecuteCommand(string command, StreamWriter sw)
+        private int TryExecuteCommand(string command, StreamWriter sw)
         {
             string password;
+            string time;
             string[] splitCommand = command.Split(null);
 
             if (!Enum.IsDefined(typeof(eCommands), splitCommand[0]))
@@ -140,15 +156,24 @@ namespace _01_exercise
             switch ((eCommands)Enum.Parse(typeof(eCommands), splitCommand[0].ToUpper()))
             {
                 case eCommands.TIME:
-                    sw.WriteLine(DateTime.Now.ToString("hh:mm:ss"));
+                    time = DateTime.Now.ToString("hh:mm:ss");
+
+                    sw.WriteLine(time);
+                    Console.WriteLine(time);
                     return 0;
 
                 case eCommands.DATE:
-                    sw.WriteLine(DateTime.Now.ToString("dd/MM/yyyy"));
+                    time = DateTime.Now.ToString("dd/MM/yyyy");
+
+                    sw.WriteLine(time);
+                    Console.WriteLine(time);
                     return 0;
 
                 case eCommands.ALL:
-                    sw.WriteLine(DateTime.Now.ToString());
+                    time = DateTime.Now.ToString();
+
+                    sw.WriteLine(time);
+                    Console.WriteLine(time);
                     return 0;
 
                 case eCommands.CLOSE:
