@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Config));
             lblIpInfo = new Label();
             lblPortInfo = new Label();
             txtIP = new TextBox();
@@ -91,6 +92,7 @@
             Controls.Add(lblPortInfo);
             Controls.Add(lblIpInfo);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Config";

@@ -57,7 +57,7 @@ namespace ClientForm
                 try
                 {
                     lblResponse.Text = sr.ReadLine();
-                    lblResponse.Text += "\n"+sr.ReadLine();
+                    lblResponse.Text += "\n" + sr.ReadLine();
 
                 }
                 catch (IOException io)
@@ -72,7 +72,7 @@ namespace ClientForm
         private void SendCommand(object sender, EventArgs e)
         {
             string command = (sender as Button).Text.ToLower();
-            command = command == "close" ? $"{command} {txtPassword.Text.Trim()}" : command;
+            command = command == "close" ? $"{command} {txtPassword.Text}" : command;
 
             Trace.WriteLine("sendCommand: " + command + "<--");
 

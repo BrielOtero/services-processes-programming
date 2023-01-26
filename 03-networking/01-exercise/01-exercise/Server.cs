@@ -19,7 +19,7 @@ namespace _01_exercise
     internal class Server
     {
         private const int PORT = 31416;
-        private readonly string PASSWORD_PATH = Path.Combine(Environment.GetEnvironmentVariable("APPDATA").ToString(), "password.txt");
+        private readonly string PASSWORD_PATH = Path.Combine(Environment.GetEnvironmentVariable("PROGRAMDATA").ToString(), "password.txt");
         private IPEndPoint? ie;
 
         private Socket? socketServer;
@@ -35,67 +35,79 @@ namespace _01_exercise
 
                 try
                 {
+
                     socketServer.Bind(ie);
                     Console.WriteLine("Bind establish");
                 }
                 catch (SocketException s)
                 {
                     Console.WriteLine(s.Message);
-                    return;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    return;
+                    Console.WriteLine($"Port {ie.Port} in use!");
+
+                    try
+                    {
+                        ie.Port++;
+                        socketServer.Bind(ie);
+                    }
+                    catch (SocketException se)
+                    {
+                        Console.WriteLine(se.Message);
+                        Console.WriteLine($"Port {ie.Port} in use!");
+                        return;
+                    }
                 }
 
                 socketServer.Listen(10);
                 WaitForConnection();
             }
-
+            socketServer.Close();
 
         }
 
         public void WaitForConnection()
         {
             Console.WriteLine("Waiting for connection");
-            while (true)
+            bool alive = true;
+
+            while (alive)
             {
                 using (socketClient = socketServer?.Accept())
                 using (NetworkStream ns = new(socketClient))
                 using (StreamReader sr = new(ns))
                 using (StreamWriter sw = new(ns))
                 {
-                    WaitForCommand(sr, sw);
+                    Console.WriteLine("Connected");
+                    alive = WaitForCommand(sr, sw);
                 }
             }
         }
 
-        private void WaitForCommand(StreamReader sr, StreamWriter sw)
+        private bool WaitForCommand(StreamReader sr, StreamWriter sw)
         {
             string? command;
-
+            Console.WriteLine("Waiting for command");
             try
             {
-                command = sr.ReadLine()?.ToUpper();
+                command = sr.ReadLine();
 
                 if (string.IsNullOrEmpty(command))
                 {
-                    return;
+                    return false;
                 }
 
                 int response = TryExecuteCommand(command, sw);
 
-                ProcessCommandResponse(sw, response);
+                return ProcessCommandResponse(sw, response);
 
             }
             catch (IOException io)
             {
                 Trace.WriteLine(io.Message);
+                return false;
             }
         }
 
-        private void ProcessCommandResponse(StreamWriter sw, int response)
+        private bool ProcessCommandResponse(StreamWriter sw, int response)
         {
             string message;
 
@@ -104,41 +116,47 @@ namespace _01_exercise
                 case 0:
                     message = "Disconnected succesfully";
                     Console.WriteLine(message);
+                    sw.WriteLine(message);
+                    sw.Flush();
+                    return false;
+                case 1:
+                    message = "Disconnected succesfully";
+                    Console.WriteLine(message);
 
                     sw.WriteLine(message);
                     sw.Flush();
-                    break;
-                case 1:
+                    return true;
+                case 2:
                     message = "The command is not defined";
                     Console.WriteLine(message);
 
                     sw.WriteLine(message);
                     sw.Flush();
-                    goto case 0;
-                case 2:
+                    goto case 1;
+                case 3:
                     message = "The password is incorrect";
                     Console.WriteLine(message);
 
                     sw.WriteLine(message);
                     sw.Flush();
-                    goto case 0;
-                case 3:
+                    goto case 1;
+                case 4:
                     message = "There isn't password, you must send close and password";
                     Console.WriteLine(message);
 
                     sw.WriteLine(message);
                     sw.Flush();
-                    goto case 0;
-                case 4:
+                    goto case 1;
+                case 5:
                     message = "Sorry the programmer who made me forgot to create the password. I recommend you go insult him!";
                     Console.WriteLine(message);
 
                     sw.WriteLine(message);
                     sw.Flush();
-                    goto case 0;
+                    goto case 1;
 
                 default:
-                    break;
+                    return false;
             }
         }
 
@@ -146,12 +164,30 @@ namespace _01_exercise
         {
             string password;
             string time;
+            bool hasPassword;
+            string restCommand = "";
             string[] splitCommand = command.Split(null);
 
-            if (!Enum.IsDefined(typeof(eCommands), splitCommand[0]))
+
+            if (!Enum.IsDefined(typeof(eCommands), splitCommand[0].ToUpper()))
             {
                 return 1;
             }
+
+            if (command.ToUpper().StartsWith(eCommands.CLOSE.ToString()) && splitCommand.Length > 1)
+            {
+                for (int i = 1; i < splitCommand.Length; i++)
+                {
+                    restCommand += splitCommand[i];
+                }
+
+                hasPassword = restCommand.Length > 0;
+            }
+            else
+            {
+                hasPassword = false;
+            }
+
 
             switch ((eCommands)Enum.Parse(typeof(eCommands), splitCommand[0].ToUpper()))
             {
@@ -160,28 +196,28 @@ namespace _01_exercise
 
                     sw.WriteLine(time);
                     Console.WriteLine(time);
-                    return 0;
+                    return 1;
 
                 case eCommands.DATE:
                     time = DateTime.Now.ToString("dd/MM/yyyy");
 
                     sw.WriteLine(time);
                     Console.WriteLine(time);
-                    return 0;
+                    return 1;
 
                 case eCommands.ALL:
                     time = DateTime.Now.ToString();
 
                     sw.WriteLine(time);
                     Console.WriteLine(time);
-                    return 0;
+                    return 1;
 
                 case eCommands.CLOSE:
 
 
-                    if (splitCommand.Length <= 1 || string.IsNullOrEmpty(splitCommand[1].Trim()))
+                    if (!hasPassword)
                     {
-                        return 3;
+                        return 4;
                     }
 
                     try
@@ -191,12 +227,12 @@ namespace _01_exercise
                     catch (Exception e)
                     {
                         Trace.WriteLine(e.Message);
-                        return 4;
+                        return 5;
                     }
 
-                    return $"close {password}" == command.ToLower() ? 0 : 2;
+                    return password == restCommand ? 0 : 3;
             }
-            return 1;
+            return 2;
         }
     }
 

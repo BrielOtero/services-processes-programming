@@ -48,9 +48,9 @@ namespace ClientForm
 
         private void TxtPort_TextChanged(object sender, EventArgs e)
         {
-            if (!int.TryParse(txtPort.Text, out int p))
+            if (!int.TryParse(txtPort.Text, out int p) && p < IPEndPoint.MaxPort)
             {
-                MessageBox.Show(this,"The PORT isn't valid", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, "The PORT isn't valid", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPort.Text = Port.ToString();
                 return;
             }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Client));
             btnTime = new Button();
             btnDate = new Button();
             btnAll = new Button();
@@ -149,6 +150,7 @@
             Controls.Add(btnDate);
             Controls.Add(btnTime);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Client";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Client";
