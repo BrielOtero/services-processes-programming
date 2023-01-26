@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             txtIp = new TextBox();
             txtPort = new TextBox();
             txtUser = new TextBox();
@@ -41,21 +42,21 @@
             // 
             txtIp.Location = new Point(12, 27);
             txtIp.Name = "txtIp";
-            txtIp.Size = new Size(100, 23);
+            txtIp.Size = new Size(194, 23);
             txtIp.TabIndex = 0;
             // 
             // txtPort
             // 
             txtPort.Location = new Point(12, 89);
             txtPort.Name = "txtPort";
-            txtPort.Size = new Size(100, 23);
+            txtPort.Size = new Size(194, 23);
             txtPort.TabIndex = 1;
             // 
             // txtUser
             // 
             txtUser.Location = new Point(12, 159);
             txtUser.Name = "txtUser";
-            txtUser.Size = new Size(100, 23);
+            txtUser.Size = new Size(194, 23);
             txtUser.TabIndex = 2;
             // 
             // lblIpInfo
@@ -89,7 +90,7 @@
             // 
             btnSave.Location = new Point(12, 216);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(100, 23);
+            btnSave.Size = new Size(194, 23);
             btnSave.TabIndex = 6;
             btnSave.Text = "SAVE";
             btnSave.UseVisualStyleBackColor = true;
@@ -99,7 +100,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(124, 251);
+            ClientSize = new Size(218, 251);
             Controls.Add(btnSave);
             Controls.Add(lblUserInfo);
             Controls.Add(lblPortInfo);
@@ -108,6 +109,7 @@
             Controls.Add(txtPort);
             Controls.Add(txtIp);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Settings";

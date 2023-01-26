@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\03-networking\\01-exercise\\01-exercise\\Server.csproj": {}
+    "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\03-networking\\01-exercise\\01-exercise\\Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\03-networking\\01-exercise\\01-exercise\\Server.csproj": {
+    "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\03-networking\\01-exercise\\01-exercise\\Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\03-networking\\01-exercise\\01-exercise\\Server.csproj",
+        "projectUniqueName": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\03-networking\\01-exercise\\01-exercise\\Server.csproj",
         "projectName": "Server",
-        "projectPath": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\03-networking\\01-exercise\\01-exercise\\Server.csproj",
-        "packagesPath": "C:\\Users\\Gabriel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\03-networking\\01-exercise\\01-exercise\\obj\\",
+        "projectPath": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\03-networking\\01-exercise\\01-exercise\\Server.csproj",
+        "packagesPath": "C:\\Users\\ID\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\03-networking\\01-exercise\\01-exercise\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Gabriel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ID\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
