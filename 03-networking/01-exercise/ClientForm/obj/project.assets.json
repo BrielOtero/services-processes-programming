@@ -8,23 +8,23 @@
     "net6.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\ID\\.nuget\\packages\\": {},
+    "C:\\Users\\Gabriel\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\03-networking\\01-exercise\\ClientForm\\ClientForm.csproj",
+      "projectUniqueName": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\03-networking\\01-exercise\\ClientForm\\ClientForm.csproj",
       "projectName": "ClientForm",
-      "projectPath": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\03-networking\\01-exercise\\ClientForm\\ClientForm.csproj",
-      "packagesPath": "C:\\Users\\ID\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ID\\git\\Class\\Services-Processes-Programming\\03-networking\\01-exercise\\ClientForm\\obj\\",
+      "projectPath": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\03-networking\\01-exercise\\ClientForm\\ClientForm.csproj",
+      "packagesPath": "C:\\Users\\Gabriel\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Gabriel\\git\\Services-Processes-Programming\\03-networking\\01-exercise\\ClientForm\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\ID\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Gabriel\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

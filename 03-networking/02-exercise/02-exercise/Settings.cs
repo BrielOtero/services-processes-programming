@@ -38,7 +38,7 @@ namespace _02_exercise
             validIP = IPAddress.TryParse(txtIp.Text, out IPAddress newIP);
             Debug.WriteLine(validIP);
             validPORT = int.TryParse(txtPort.Text, out int newPort) && newPort < IPEndPoint.MaxPort;
-            validUSER = regexDNI.IsMatch(txtUser.Text.ToUpper());
+            validUSER = regexDNI.Match(txtUser.Text.ToUpper()).ToString() == txtUser.Text.ToUpper();
 
 
             message += validIP ? "" : "IP ";

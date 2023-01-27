@@ -7,17 +7,19 @@ namespace _02_exercise
 {
     public partial class Client : Form
     {
-        readonly string CONFIG_PATH = Path.Combine(Environment.GetEnvironmentVariable("PROGRAMDATA"), "shiftsConfig.json");
+        private readonly string CONFIG_PATH = Path.Combine(Environment.GetEnvironmentVariable("PROGRAMDATA"), "shiftsConfig.json");
         private Config config;
 
         private const string LOGGING_ERROR_MSG = "Sorry, the user does not exist or the server does not respond.";
-        private const string SAVE_CONFIG_ERROR_MSG = "The program can't save the config";
-        private const string PORT_ERROR_MSG = "Unable to find a free port";
-        private const string IP_OR_PORT_ERROR_MSG = "Error with IP or PORT configuration";
+        private const string SAVE_CONFIG_ERROR_MSG = "The program can't save the config.";
+        private const string PORT_ERROR_MSG = "Unable to find a free port.";
+        private const string IP_OR_PORT_ERROR_MSG = "Error with IP or PORT configuration.";
+        private const string IP_ERROR_MSG = "Sorry but the ip specified in the settings is not available.";
+        private const string UNKNOWN_ERROR_MSG = "We are sorry but an unknown error occurred while establishing the connection.";
         private const string SERVER_ERROR_MSG = "The server does not respond.";
-        private const string ASK_FOR_RETRY_PORT_ERROR_MSG = "Sorry but the port in configuration is in use"
+        private const string ASK_FOR_RETRY_PORT_ERROR_MSG = "Sorry but the port in configuration is in use."
                     + "\nDo you want us to try to find a free port for you?" +
-                    "\nThis may take a little while";
+                    "\nThis may take a little while.";
 
 
         public Client()
@@ -107,52 +109,32 @@ namespace _02_exercise
         {
             try
             {
-                serverSocket.Bind(ie);
+                serverSocket.Connect(ie);
             }
-            catch (Exception)
+            catch (SocketException se)
             {
                 Debug.WriteLine($"PORT {ie.Port} in use");
+                Debug.WriteLine(se.SocketErrorCode);
 
-                if (MessageBox.Show(this, ASK_FOR_RETRY_PORT_ERROR_MSG, "ERROR", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                switch (se.SocketErrorCode)
                 {
-                    return false;
-                }
-                else
-                {
-                    bool isBinded = false;
-
-                    for (int i = IPEndPoint.MinPort; i < IPEndPoint.MaxPort; i++)
-                    {
-                        try
-                        {
-                            ie.Port = i;
-                            serverSocket.Bind(ie);
-                            isBinded = true;
-                            break;
-                        }
-                        catch (Exception)
-                        {
-                            Debug.WriteLine($"PORT {i} in use");
-                        }
-                    }
-
-                    if (!isBinded)
-                    {
-                        ShowMessageError(PORT_ERROR_MSG);
+                    case SocketError.TimedOut:
+                        ShowMessageError(IP_ERROR_MSG);
                         return false;
-                    }
 
+                    default:
+                        ShowMessageError(UNKNOWN_ERROR_MSG);
+                        return false;
                 }
             }
-            Debug.WriteLine($"Connected to {ie.Port}");
             return true;
         }
 
         private void CommunicationWithServer(Socket serverSocket, string command)
         {
 
-            string firstResponse;
-            string secondResponse;
+            string loggingResponse;
+            string commandResponse;
 
             using (NetworkStream ns = new(serverSocket))
             using (StreamReader sr = new(ns))
@@ -163,7 +145,7 @@ namespace _02_exercise
 
                 try
                 {
-                    firstResponse = sr.ReadLine();
+                    loggingResponse = sr.ReadLine();
                 }
                 catch (IOException io)
                 {
@@ -172,18 +154,24 @@ namespace _02_exercise
                     return;
                 }
 
-                Debug.WriteLine(firstResponse);
+                Debug.WriteLine(loggingResponse);
 
-                if (firstResponse == "OK")
+                if (loggingResponse != "OK")
                 {
+                    ShowMessageError(LOGGING_ERROR_MSG);
+                    return;
+                }
+                else
+                {
+
                     Debug.WriteLine("User logged correctly");
 
-                    sw.WriteLine(command);
+                    sw.WriteLine(command.ToLower());
                     sw.Flush();
 
                     try
                     {
-                        secondResponse = sr.ReadToEnd();
+                        commandResponse = sr.ReadToEnd();
                     }
                     catch (IOException io)
                     {
@@ -192,14 +180,10 @@ namespace _02_exercise
                         return;
                     }
 
-                    Debug.WriteLine(secondResponse);
+                    Debug.WriteLine(commandResponse);
 
-                    lblShow.Text = secondResponse;
-                }
-                else
-                {
-                    ShowMessageError(LOGGING_ERROR_MSG);
-                    return;
+                    lblShow.Text = commandResponse;
+
                 }
             }
         }

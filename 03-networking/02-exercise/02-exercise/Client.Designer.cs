@@ -37,7 +37,7 @@
             // 
             // btnSettings
             // 
-            btnSettings.Location = new Point(713, 12);
+            btnSettings.Location = new Point(421, 12);
             btnSettings.Name = "btnSettings";
             btnSettings.Size = new Size(75, 23);
             btnSettings.TabIndex = 0;
@@ -50,7 +50,7 @@
             lblShow.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblShow.Location = new Point(12, 43);
             lblShow.Name = "lblShow";
-            lblShow.Size = new Size(776, 398);
+            lblShow.Size = new Size(484, 398);
             lblShow.TabIndex = 1;
             // 
             // btnAdd
@@ -77,11 +77,12 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(508, 450);
             Controls.Add(btnList);
             Controls.Add(btnAdd);
             Controls.Add(lblShow);
             Controls.Add(btnSettings);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Client";
             Text = "SHIFTS";
