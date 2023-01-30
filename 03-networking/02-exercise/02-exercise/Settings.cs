@@ -28,7 +28,6 @@ namespace _02_exercise
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Regex regexDNI = new("([0-9]){8}([A-Z]){1}");
             string message = "";
             bool validIP;
             bool validPORT;
@@ -38,7 +37,7 @@ namespace _02_exercise
             validIP = IPAddress.TryParse(txtIp.Text, out IPAddress newIP);
             Debug.WriteLine(validIP);
             validPORT = int.TryParse(txtPort.Text, out int newPort) && newPort < IPEndPoint.MaxPort;
-            validUSER = regexDNI.Match(txtUser.Text.ToUpper()).ToString() == txtUser.Text.ToUpper();
+            validUSER = !string.IsNullOrEmpty(txtUser.Text);
 
 
             message += validIP ? "" : "IP ";
@@ -50,13 +49,16 @@ namespace _02_exercise
                 MessageBox.Show(this, $"The {message} isn't valid", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            else
+            {
 
-            Config.IP_Server = txtIp.Text;
-            Config.Port = newPort;
-            Config.User = txtUser.Text.ToUpper();
+                Config.IP_Server = txtIp.Text;
+                Config.Port = newPort;
+                Config.User = txtUser.Text;
+            }
 
-            DialogResult = DialogResult.Yes;
-            this.Close();
+            //   DialogResult = DialogResult.Yes;
+            //  this.Close();
         }
 
     }
