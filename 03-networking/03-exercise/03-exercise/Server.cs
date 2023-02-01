@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using static _03_exercise.Server;
 
 namespace _03_exercise
 {
@@ -15,10 +16,31 @@ namespace _03_exercise
         private IPEndPoint ie;
         private Socket serverSocket;
         private Socket userSocket;
-        private Dictionary<String, Socket> users = new();
+        private Dictionary<String, User> users = new();
         private const string EXIT = "#EXIT";
         private const string LIST = "#LIST";
 
+
+        public struct User
+        {
+            public Socket UserSocket;
+            public string PublicUsername;
+            public string Username;
+            public bool IsConnected;
+            public bool IsRegister;
+
+            public User() : this(null, "", "", false, false) { }
+            public User(Socket userSocket) : this(userSocket, "", "", true, false) { }
+
+            public User(Socket userSocket, string publicUsername, string username, bool isConnected, bool isRegister)
+            {
+                this.UserSocket = userSocket;
+                this.PublicUsername = publicUsername;
+                this.Username = username;
+                this.IsConnected = isConnected;
+                this.IsRegister = isRegister;
+            }
+        }
 
 
         public void StartServer()
@@ -53,91 +75,137 @@ namespace _03_exercise
             while (true)
             {
                 userSocket = serverSocket?.Accept();
-
-
-                new Thread(UserManagment).Start(userSocket);
-
+                new Thread(UserManagement).Start(userSocket);
             }
         }
         static readonly private object l = new object();
 
-        private void UserManagment(object userSocket)
+        private void UserManagement(object userSocket)
         {
-            bool isCorrectUsername = false;
-            bool isUserConnected = true;
-            string username = "";
-            string showedUsername = "";
-            string command = "";
-            IPEndPoint userIE;
+            User user = new((Socket)userSocket);
 
-            using (NetworkStream ns = new((Socket)userSocket))
+
+            using (NetworkStream ns = new(user.UserSocket))
             using (StreamReader sr = new(ns))
             using (StreamWriter sw = new(ns))
             {
-
-                while (isUserConnected)
+                while (user.IsConnected)
                 {
-                    while (!isCorrectUsername)
+                    while (!user.IsRegister)
                     {
                         sw.WriteLine("Insert username: ");
                         sw.Flush();
-                        try
+                        user = RegisterUser(user, sw, sr);
+
+                        if (!user.IsConnected)
                         {
-                            username = sr.ReadLine();
-                        }
-                        catch (IOException)
-                        {
-                            Debug.WriteLine("Username readLine error");
                             return;
                         }
-
-                        lock (l)
-                        {
-                            if (users.ContainsKey(username.ToLower()))
-                            {
-                                sw.WriteLine("Username is taken, try another! ");
-                                sw.Flush();
-                            }
-                            else
-                            {
-                                sw.WriteLine("Succesfully connected!");
-                                sw.Flush();
-                                isCorrectUsername = true;
-                                users.Add(username.ToLower(), (Socket)userSocket);
-                                userIE = (IPEndPoint)((Socket)userSocket).RemoteEndPoint;
-                                showedUsername = $"{username}@{userIE.Address}";
-                                SendMessage(username, "Connected", (Socket)userSocket);
-                            }
-                        }
                     }
 
-                    if (GetMessage(sr, out string message))
+                    bool messageResponse = GetMessage(sr, out string message);
+
+                    lock (l)
                     {
-
-                        switch (message.ToUpper())
+                        if (messageResponse)
                         {
-                            case LIST:
-                                break;
-                            case EXIT:
-                                SendMessage(showedUsername, "Disconnected", (Socket)userSocket);
-                                break;
-                            default:
-                                SendMessage(showedUsername, message, (Socket)userSocket);
-                                break;
+                            user = ProcessMessage(user, sw, message);
                         }
                     }
-                    else
-                    {
-                        lock (l)
-                        {
-                            SendMessage(showedUsername, "Disconnected", (Socket)userSocket);
-                            users.Remove(showedUsername);
-                        }
-                    }
-
                 }
-
+                user.UserSocket.Close();
             }
+        }
+
+        private User RegisterUser(User user, StreamWriter sw, StreamReader sr)
+        {
+            try
+            {
+                user.Username = sr.ReadLine()?.ToLower();
+            }
+            catch (IOException)
+            {
+                Debug.WriteLine("Username readLine error");
+                return user;
+            }
+
+            if (user.Username==String.Empty)
+            {
+                sw.WriteLine("Insert a valid username please! ");
+                sw.Flush();
+                return user;
+            }
+
+            if (user.Username == null)
+            {
+                user.IsConnected = false;
+                user.IsRegister = true;
+                return user;
+            }
+
+            lock (l)
+            {
+                if (users.ContainsKey(user.Username))
+                {
+                    sw.WriteLine("Username is taken, try another! ");
+                    sw.Flush();
+                    return user;
+                }
+                else
+                {
+                    sw.WriteLine("Succesfully connected!");
+                    sw.Flush();
+
+                    try
+                    {
+                        user.PublicUsername = $"{user.Username}@{((userSocket as Socket).RemoteEndPoint as IPEndPoint).Address.ToString()}";
+                        Debug.WriteLine("USER  " + user.Username);
+                    }
+                    catch (Exception)
+                    {
+                        user.PublicUsername = $"{user.Username}@{"NoIPAvailable"}";
+                        Debug.WriteLine("USER  " + user.Username);
+
+                        Debug.WriteLine("Error getting publicUsername");
+                    }
+
+                    user.IsRegister = true;
+                    users.Add(user.Username, user);
+                    SendMessage(user.Username, "Connected", user.UserSocket);
+
+                    return user;
+                }
+            }
+        }
+
+        private User ProcessMessage(User user, StreamWriter sw, string message)
+        {
+
+            switch (message.ToUpper())
+            {
+                case LIST:
+                    sw.WriteLine("Connected users:");
+                    sw.Flush();
+                    sw.WriteLine();
+                    sw.Flush();
+
+                    foreach (var tempUser in users.Values)
+                    {
+                        sw.WriteLine(tempUser.PublicUsername);
+                        sw.Flush();
+                    }
+                    break;
+                case EXIT:
+                    SendMessage(user.PublicUsername, "Disconnected", (Socket)userSocket);
+                    users.Remove(user.Username);
+                    user.IsConnected = false;
+                    break;
+                default:
+                    SendMessage(user.PublicUsername, message, (Socket)userSocket);
+                    break;
+            }
+
+            return user;
         }
 
         private bool GetMessage(StreamReader sr, out string message)
@@ -146,7 +214,7 @@ namespace _03_exercise
             {
                 message = sr.ReadLine();
 
-                if (message == null)
+                if (String.IsNullOrEmpty(message))
                 {
                     return false;
                 }
@@ -168,7 +236,7 @@ namespace _03_exercise
             {
                 if (!user.Value.Equals(userSocket))
                 {
-                    using (NetworkStream ns = new(user.Value))
+                    using (NetworkStream ns = new(user.Value.UserSocket))
                     using (StreamReader sr = new(ns))
                     using (StreamWriter sw = new(ns))
                     {
@@ -176,7 +244,6 @@ namespace _03_exercise
                         sw.Flush();
                     }
                 }
-
             }
         }
 
@@ -205,14 +272,9 @@ namespace _03_exercise
                 return false;
             }
 
-
             Debug.WriteLine($"Connected to {ie.Port}");
             return true;
         }
 
-        private enum eCommand
-        {
-            LIST,
-        }
     }
 }
