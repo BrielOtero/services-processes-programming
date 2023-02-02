@@ -91,25 +91,28 @@ namespace _03_exercise
             {
                 while (user.IsConnected)
                 {
-                    while (!user.IsRegister)
+                    while (!user.IsRegister && user.IsConnected)
                     {
                         sw.WriteLine("Insert username: ");
                         sw.Flush();
                         user = RegisterUser(user, sw, sr);
-
-                        if (!user.IsConnected)
-                        {
-                            return;
-                        }
                     }
 
-                    bool messageResponse = GetMessage(sr, out string message);
+
+                    int messageResponse = GetMessage(sr, out string message);
 
                     lock (l)
                     {
-                        if (messageResponse)
+                        switch (messageResponse)
                         {
-                            user = ProcessMessage(user, sw, message);
+                            case -1:
+                                user = ProcessMessage(user, sw, "#EXIT");
+                                break;
+                            case 0:
+                                user = ProcessMessage(user, sw, message);
+                                break;
+                            case 1:
+                                break;
                         }
                     }
                 }
@@ -122,6 +125,7 @@ namespace _03_exercise
             try
             {
                 user.Username = sr.ReadLine()?.ToLower();
+                Debug.WriteLine($"User {user.Username}");
             }
             catch (IOException)
             {
@@ -129,7 +133,7 @@ namespace _03_exercise
                 return user;
             }
 
-            if (user.Username==String.Empty)
+            if (user.Username == String.Empty)
             {
                 sw.WriteLine("Insert a valid username please! ");
                 sw.Flush();
@@ -138,8 +142,8 @@ namespace _03_exercise
 
             if (user.Username == null)
             {
+                Debug.WriteLine("Username is null");
                 user.IsConnected = false;
-                user.IsRegister = true;
                 return user;
             }
 
@@ -153,9 +157,6 @@ namespace _03_exercise
                 }
                 else
                 {
-                    sw.WriteLine("Succesfully connected!");
-                    sw.Flush();
-
                     try
                     {
                         user.PublicUsername = $"{user.Username}@{((userSocket as Socket).RemoteEndPoint as IPEndPoint).Address.ToString()}";
@@ -169,14 +170,21 @@ namespace _03_exercise
                         Debug.WriteLine("Error getting publicUsername");
                     }
 
+
                     user.IsRegister = true;
                     users.Add(user.Username, user);
-                    SendMessage(user.Username, "Connected", user.UserSocket);
+
+                    sw.WriteLine("Succesfully connected!");
+                    sw.Flush();
+
+                    SendMessage(user.Username, user.PublicUsername, "Connected");
 
                     return user;
+
                 }
             }
         }
+
 
         private User ProcessMessage(User user, StreamWriter sw, string message)
         {
@@ -196,51 +204,57 @@ namespace _03_exercise
                     }
                     break;
                 case EXIT:
-                    SendMessage(user.PublicUsername, "Disconnected", (Socket)userSocket);
                     users.Remove(user.Username);
+                    SendMessage(user.Username, user.PublicUsername, "Disconnected");
                     user.IsConnected = false;
                     break;
                 default:
-                    SendMessage(user.PublicUsername, message, (Socket)userSocket);
+                    SendMessage(user.Username, user.PublicUsername, message);
                     break;
             }
 
             return user;
         }
 
-        private bool GetMessage(StreamReader sr, out string message)
+        private int GetMessage(StreamReader sr, out string message)
         {
             try
             {
                 message = sr.ReadLine();
 
-                if (String.IsNullOrEmpty(message))
+                if (message == String.Empty)
                 {
-                    return false;
+                    return 1;
+                }
+
+                if (message == null)
+                {
+                    return -1;
                 }
             }
             catch (IOException)
             {
                 Debug.WriteLine("Command readLine error");
                 message = "";
-                return false;
+                return -1;
             }
 
-            return true;
+            return 0;
         }
 
 
-        private void SendMessage(string username, string message, Socket userSocket)
+        private void SendMessage(string username, string publicUsername, string message)
         {
+
             foreach (var user in users)
             {
-                if (!user.Value.Equals(userSocket))
+                if (user.Key != username)
                 {
                     using (NetworkStream ns = new(user.Value.UserSocket))
                     using (StreamReader sr = new(ns))
                     using (StreamWriter sw = new(ns))
                     {
-                        sw.WriteLine($"{username}:{message}");
+                        sw.WriteLine($"{publicUsername}:{message}");
                         sw.Flush();
                     }
                 }
