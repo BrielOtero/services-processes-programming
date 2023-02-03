@@ -125,7 +125,7 @@ namespace _03_exercise
             try
             {
                 user.Username = sr.ReadLine()?.ToLower();
-                Debug.WriteLine($"User {user.Username}");
+                Debug.WriteLine($"{nameof(RegisterUser)} username inserted: {user.Username}");
             }
             catch (IOException)
             {
@@ -135,8 +135,15 @@ namespace _03_exercise
 
             if (user.Username == String.Empty)
             {
-                sw.WriteLine("Insert a valid username please! ");
-                sw.Flush();
+                try
+                {
+                    sw.WriteLine("Insert a valid username please! ");
+                    sw.Flush();
+                }
+                catch (IOException)
+                {
+                    Debug.WriteLine("Error showing insert valid usrname message");
+                }
                 return user;
             }
 
@@ -151,8 +158,16 @@ namespace _03_exercise
             {
                 if (users.ContainsKey(user.Username))
                 {
-                    sw.WriteLine("Username is taken, try another! ");
-                    sw.Flush();
+                    try
+                    {
+                        sw.WriteLine("Username is taken, try another! ");
+                        sw.Flush();
+                    }
+                    catch (IOException)
+                    {
+                        Debug.WriteLine("Error showing username taken message");
+                    }
+
                     return user;
                 }
                 else
@@ -165,7 +180,6 @@ namespace _03_exercise
                     catch (Exception)
                     {
                         user.PublicUsername = $"{user.Username}@{"NoIPAvailable"}";
-                        Debug.WriteLine("USER  " + user.Username);
 
                         Debug.WriteLine("Error getting publicUsername");
                     }
@@ -174,9 +188,15 @@ namespace _03_exercise
                     user.IsRegister = true;
                     users.Add(user.Username, user);
 
-                    sw.WriteLine("Succesfully connected!");
-                    sw.Flush();
-
+                    try
+                    {
+                        sw.WriteLine("Successfully connected!");
+                        sw.Flush();
+                    }
+                    catch (IOException)
+                    {
+                        Debug.WriteLine("Error showing successfully connected message");
+                    }
                     SendMessage(user.Username, user.PublicUsername, "Connected");
 
                     return user;
@@ -192,19 +212,36 @@ namespace _03_exercise
             switch (message.ToUpper())
             {
                 case LIST:
-                    sw.WriteLine("Connected users:");
-                    sw.Flush();
-                    sw.WriteLine();
-                    sw.Flush();
+                    try
+                    {
+                        sw.WriteLine("Connected users:");
+                        sw.Flush();
+                        sw.WriteLine();
+                        sw.Flush();
+                    }
+                    catch (IOException)
+                    {
+                        Debug.WriteLine("Error showing connected users info message");
+                    }
 
                     foreach (var tempUser in users.Values)
                     {
-                        sw.WriteLine(tempUser.PublicUsername);
-                        sw.Flush();
+                        try
+                        {
+                            sw.WriteLine(tempUser.PublicUsername);
+                            sw.Flush();
+                        }
+                        catch (IOException)
+                        {
+                            Debug.WriteLine("Error showing username in connected users message");
+                        }
                     }
                     break;
                 case EXIT:
-                    users.Remove(user.Username);
+                    if (!String.IsNullOrEmpty(user.Username))
+                    {
+                        users.Remove(user.Username);
+                    }
                     SendMessage(user.Username, user.PublicUsername, "Disconnected");
                     user.IsConnected = false;
                     break;
@@ -250,12 +287,20 @@ namespace _03_exercise
             {
                 if (user.Key != username)
                 {
-                    using (NetworkStream ns = new(user.Value.UserSocket))
-                    using (StreamReader sr = new(ns))
-                    using (StreamWriter sw = new(ns))
+                    try
                     {
-                        sw.WriteLine($"{publicUsername}:{message}");
-                        sw.Flush();
+
+                        using (NetworkStream ns = new(user.Value.UserSocket))
+                        using (StreamReader sr = new(ns))
+                        using (StreamWriter sw = new(ns))
+                        {
+                            sw.WriteLine($"{publicUsername}:{message}");
+                            sw.Flush();
+                        }
+                    }
+                    catch (IOException)
+                    {
+                        Debug.WriteLine($"Error in {nameof(SendMessage)} message");
                     }
                 }
             }

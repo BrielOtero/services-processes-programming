@@ -1,0 +1,15 @@
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\04-exercise\04-exercise\bin\Debug\net6.0\ShiftServer.exe
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\04-exercise\04-exercise\bin\Debug\net6.0\ShiftServer.deps.json
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\04-exercise\04-exercise\bin\Debug\net6.0\ShiftServer.runtimeconfig.json
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\04-exercise\04-exercise\bin\Debug\net6.0\ShiftServer.dll
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\04-exercise\04-exercise\bin\Debug\net6.0\ShiftServer.pdb
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\04-exercise\04-exercise\obj\Debug\net6.0\ShiftServer.csproj.AssemblyReference.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\04-exercise\04-exercise\obj\Debug\net6.0\ShiftServer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\04-exercise\04-exercise\obj\Debug\net6.0\ShiftServer.AssemblyInfoInputs.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\04-exercise\04-exercise\obj\Debug\net6.0\ShiftServer.AssemblyInfo.cs
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\04-exercise\04-exercise\obj\Debug\net6.0\ShiftServer.csproj.CoreCompileInputs.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\04-exercise\04-exercise\obj\Debug\net6.0\ShiftServer.dll
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\04-exercise\04-exercise\obj\Debug\net6.0\refint\ShiftServer.dll
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\04-exercise\04-exercise\obj\Debug\net6.0\ShiftServer.pdb
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\04-exercise\04-exercise\obj\Debug\net6.0\ShiftServer.genruntimeconfig.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\04-exercise\04-exercise\obj\Debug\net6.0\ref\ShiftServer.dll

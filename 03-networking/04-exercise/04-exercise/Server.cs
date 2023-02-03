@@ -11,10 +11,11 @@ using System.Windows.Input;
 
 namespace _04_exercise
 {
+
     internal class Server
     {
         private string[] users;
-        private List<string> waitQueue;
+        private List<string> waitQueue = new();
 
         private const int PRIMARY_PORT = 31416;
         private const int SECONDARY_PORT = 1024;
@@ -23,13 +24,37 @@ namespace _04_exercise
         private Socket serverSocket;
         private Socket clientSocket;
 
+
         private enum eCommands
         {
             LIST, ADD, DEL, CHPIN, EXIT, SHUTDOWN
         }
 
+        private struct User
+        {
+            public bool IsConnected;
+            public bool IsLogged;
+            public bool IsAdmin;
+            public Socket UserSocket;
+            public string Username;
 
-        private void ReadNames(string path)
+            public User(Socket userSocket) : this(userSocket, true, false, true, "") { }
+            public User(Socket userSocket, bool isConnected, bool isLogged, bool isAdmin, string username)
+            {
+                UserSocket = userSocket;
+                IsConnected = isConnected;
+                IsLogged = isLogged;
+                IsAdmin = isAdmin;
+                Username = username;
+            }
+        }
+
+        private struct UserQueue
+        {
+            public string Name
+        }
+
+        private bool ReadNames(string path)
         {
             string fileContent;
 
@@ -40,11 +65,12 @@ namespace _04_exercise
             catch (Exception)
             {
                 Trace.WriteLine($"Error in {nameof(ReadNames)} reading file content");
-                return;
+                return false;
             }
 
             string[] fileUsers = fileContent.Split(';');
             users = fileUsers;
+            return true;
         }
 
         private int ReadPin(string path)
@@ -63,12 +89,11 @@ namespace _04_exercise
                 {
                     return -1;
                 }
-
             }
             return 0;
         }
 
-        private void Init()
+        public void Init()
         {
             IPEndPoint ie = new(IPAddress.Any, PRIMARY_PORT);
 
@@ -107,87 +132,126 @@ namespace _04_exercise
             }
 
             Console.WriteLine($"Server connected on port: {ie.Port}");
-            ReadNames(PATH_NAMES);
 
-            while (true)
+
+            if (!ReadNames(PATH_NAMES))
             {
-                clientSocket = serverSocket.Accept();
-
-                new Thread(UserManagement).Start(clientSocket);
+                Console.WriteLine("Error reading USERS file");
+                return;
             }
-
+            serverSocket.Listen(18);
+            WaitForClientConnection(serverSocket);
 
         }
 
-        private void UserManagement(object clientSocket)
+
+
+        private void WaitForClientConnection(Socket serverSocket)
         {
-            bool isUserConnected = true;
-            bool isUserLogged = false;
-            using (NetworkStream ns = new((Socket)clientSocket))
+            while (true)
+            {
+                clientSocket = serverSocket?.Accept();
+
+                new Thread(UserManagement).Start(clientSocket);
+            }
+        }
+
+       
+
+        private void UserManagement(object userSocket)
+        {
+            //bool isUserConnected = true;
+            //bool isUserLogged = false;
+            //bool isAdmin = false;
+
+            User user = new((Socket)userSocket);
+
+            using (NetworkStream ns = new((Socket)user.UserSocket))
             using (StreamReader sr = new(ns))
             using (StreamWriter sw = new(ns))
             {
-                while (isUserConnected)
+                Debug.WriteLine("Before admin");
+
+                while (user.IsAdmin)
                 {
-                    if (!isUserLogged)
+                    Debug.WriteLine("New user connected");
+
+                    user.IsAdmin = false;
+
+                    if (!user.IsLogged)
                     {
                         sw.WriteLine("WELCOME");
                         sw.Flush();
                         sw.WriteLine("Insert your username");
                         sw.Flush();
 
-                        switch (GetRegisterUsername(sr, out string message))
+                        switch (GetRegisterUsername(sr, out string username))
                         {
 
                             case -1:
-                                isUserConnected = false;
+                                user.IsConnected = false;
                                 sw.WriteLine("Unknown user");
+                                sw.Flush();
                                 break;
                             case 0:
-                                isUserLogged = true;
+                                user.IsLogged = true;
+                                user.Username = username;
+                                sw.WriteLine("OK");
+                                sw.Flush();
                                 break;
                             case 1:
-                                isUserLogged = true;
+                                user.IsLogged = true;
                                 break;
                         }
                     }
-                    string response = sr.ReadLine();
 
-
-                    switch (Enum.Parse(typeof(eCommands), response.ToLower()))
+                    if (user.IsConnected)
                     {
-                        case eCommands.LIST:
-                            waitQueue.ForEach((x) =>
+                        string response = sr.ReadLine();
+
+                        if (!String.IsNullOrEmpty(response))
+                        {
+                            if (Enum.TryParse(typeof(eCommands), response.ToUpper(), false, out object command))
                             {
-                                try
+                                switch (command)
                                 {
-                                    sw.WriteLine(x);
+                                    case eCommands.LIST:
+                                        waitQueue.ForEach((x) =>
+                                        {
+                                            try
+                                            {
+                                                sw.WriteLine(x);
+                                                sw.Flush();
+                                            }
+                                            catch (IOException)
+                                            {
+                                                Debug.WriteLine("Error showing waitQueue users");
+                                            }
+                                        });
+
+                                        break;
+                                    case eCommands.ADD:
+                                        waitQueue.Add($"{user.Username} {DateTime.Now}");
+                                        break;
+                                    case eCommands.DEL:
+                                        break;
+                                    case eCommands.CHPIN:
+                                        break;
+                                    case eCommands.EXIT:
+                                        break;
+                                    case eCommands.SHUTDOWN:
+                                        break;
+                                    default:
+                                        break;
                                 }
-                                catch (IOException)
-                                {
-                                    Debug.WriteLine()
-                                }
-                            });
-                            break;
-                        case eCommands.ADD:
-                            break;
-                        case eCommands.DEL:
-                            break;
-                        case eCommands.CHPIN:
-                            break;
-                        case eCommands.EXIT:
-                            break;
-                        case eCommands.SHUTDOWN:
-                            break;
-                        default:
-                            break;
+                            }
+
+                        }
+
                     }
 
-
-
-
-
                 }
+                user.UserSocket.Close();
             }
         }
 
