@@ -180,8 +180,8 @@ namespace _05_exercise
             using (StreamReader sr = new(ns))
             using (StreamWriter sw = new(ns))
             {
-                sw.WriteLine("");
-                sw.Flush();
+                //sw.WriteLine("");
+                //sw.Flush();
 
 
                 if (TryGetMessage(out string response, sr))
