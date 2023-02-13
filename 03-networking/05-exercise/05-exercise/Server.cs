@@ -196,39 +196,38 @@ namespace _05_exercise
                         switch (command)
                         {
                             case eCommands.GETWORD:
+                                if (words.Count <= 0) return;
+
                                 TrySendMessage(words.OrderBy(_ => new Random().Next()).ToList()[0], sw);
                                 break;
                             case eCommands.SENDWORD:
-                                if (responseSplit.Length == 2)
-                                {
-                                    bool isCorrectlyAdded = false;
-                                    if (!words.Contains(responseSplit[1]))
-                                    {
-                                        words.Add(responseSplit[1]);
-                                        isCorrectlyAdded = SaveWords();
-                                    }
+                                if (responseSplit.Length != 2) return;
 
-                                    TrySendMessage(isCorrectlyAdded ? "OK" : "ERROR", sw);
+                                bool isWordAdded = false;
+
+                                if (!words.Contains(responseSplit[1]))
+                                {
+                                    words.Add(responseSplit[1]);
+                                    isWordAdded = SaveWords();
                                 }
+
+                                TrySendMessage(isWordAdded ? "OK" : "ERROR", sw);
                                 break;
                             case eCommands.GETRECORDS:
+                                if (records.Count <= 0) return;
 
-                                if (records.Count > 0)
-                                {
-                                    string msgRecords = JsonSerializer.Serialize(records);
-                                    Debug.WriteLine("Records: " + msgRecords);
-                                    TrySendMessage(msgRecords, sw);
-                                }
+                                string msgRecords = JsonSerializer.Serialize(records);
+                                Debug.WriteLine("Records: " + msgRecords);
+                                TrySendMessage(msgRecords, sw);
 
 
                                 break;
                             case eCommands.SENDRECORD:
-                                if (responseSplit.Length == 2)
-                                {
+                                if (responseSplit.Length != 2) return;
 
                                     Debug.WriteLine(nameof(eCommands.SENDRECORD));
 
-                                    bool isCorrectlyAdded = false;
+                                    bool isRecordAdded = false;
 
                                     Record? newRecord = JsonSerializer.Deserialize<Record>(responseSplit[1]);
 
@@ -242,18 +241,17 @@ namespace _05_exercise
                                             {
                                                 records.Remove(maxRecord);
                                                 records.Add(newRecord);
-                                                isCorrectlyAdded = SaveRecords();
+                                                isRecordAdded = SaveRecords();
                                             }
                                         }
                                         else
                                         {
                                             records.Add(newRecord);
-                                            isCorrectlyAdded = SaveRecords();
+                                            isRecordAdded = SaveRecords();
                                         }
                                     }
 
-                                    TrySendMessage(isCorrectlyAdded ? "ACCEPT" : "REJECT", sw);
-                                }
+                                    TrySendMessage(isRecordAdded ? "ACCEPT" : "REJECT", sw);
                                 break;
                             case eCommands.CLOSESERVER:
                                 break;

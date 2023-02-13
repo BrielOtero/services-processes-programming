@@ -1,4 +1,6 @@
-﻿using System;
+﻿using _05_exercise;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,6 +23,8 @@ namespace hangman
         private IPEndPoint ie;
         private Socket clientSocket;
         private string guessWord;
+        private List<Record> records;
+        private Record newRecord;
 
 
         //ERROR MESSAGE
@@ -29,14 +33,33 @@ namespace hangman
         private const string UNKNOWN_ERROR_MSG = "We are sorry but an unknown error occurred while establishing the connection.";
         private const string SERVER_ERROR_MSG = "The server does not respond.";
 
+        Timer timer = new Timer();
+
+        private enum eCommands
+        {
+            GETWORD, SENDRECORD, SENDWORD, GETRECORDS
+        }
+
 
 
         public Form()
         {
             InitializeComponent();
+            timer.Interval = 1000;
+            timer.Tick += Timer_OnTick;
         }
 
-        private void tsmiNewGame_Click(object sender, EventArgs e)
+        private void TsmiNewGame_Click(object sender, EventArgs e)
+        {
+            if (!ExecuteCommand(eCommands.GETWORD))
+            {
+                return;
+            }
+
+            StartNewGame();
+        }
+
+        private bool ExecuteCommand(eCommands command)
         {
             try
             {
@@ -47,7 +70,7 @@ namespace hangman
                 Debug.WriteLine(ae.Message);
 
                 ShowMessageError(IP_OR_PORT_ERROR_MSG);
-                return;
+                return false;
             }
 
             clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -55,10 +78,10 @@ namespace hangman
 
             if (!TryEstablishServerConnection())
             {
-                return;
+                return false;
             }
 
-            CommunicationWithServer();
+            return CommunicationWithServer(command);
         }
 
         private bool TryEstablishServerConnection()
@@ -85,29 +108,69 @@ namespace hangman
             return true;
         }
 
-        private void CommunicationWithServer()
+        private bool CommunicationWithServer(eCommands command)
         {
             using (NetworkStream ns = new NetworkStream(clientSocket))
             using (StreamWriter sw = new StreamWriter(ns))
             using (StreamReader sr = new StreamReader(ns))
             {
-                if (!SendMessage("getWord", sw))
+                switch (command)
                 {
-                    ShowMessageError(SERVER_ERROR_MSG);
-                    return;
+                    case eCommands.GETWORD:
+
+                        if (!SendMessage(eCommands.GETWORD.ToString(), sw))
+                        {
+                            ShowMessageError(SERVER_ERROR_MSG);
+                            return false;
+                        }
+
+                        if (!GetMessage(out string guessWordResponse, sr))
+                        {
+                            ShowMessageError(SERVER_ERROR_MSG);
+                            return false;
+                        }
+
+                        guessWord = guessWordResponse;
+                        Debug.WriteLine("The word is: " + guessWord);
+                        break;
+                    case eCommands.GETRECORDS:
+                        newRecord = new Record("", 1);
+
+                        if (!SendMessage(eCommands.GETRECORDS.ToString(), sw))
+                        {
+                            ShowMessageError(SERVER_ERROR_MSG);
+                            return false;
+                        }
+                        if (!GetMessage(out string recordsResponse, sr))
+                        {
+                            ShowMessageError(SERVER_ERROR_MSG);
+                            return false;
+                        }
+                        records = JsonConvert.DeserializeObject<List<Record>>(recordsResponse);
+                        Record maxRecord = records.Max();
+
+                        if (newRecord.Seconds < maxRecord.Seconds)
+                        {
+                            ExecuteCommand(eCommands.SENDRECORD);
+                        }
+                        break;
+                    case eCommands.SENDRECORD:
+                        string recordInJson = JsonConvert.SerializeObject(newRecord);
+
+                        if (!SendMessage($"{eCommands.SENDRECORD.ToString()} {recordInJson}", sw))
+                        {
+                            ShowMessageError(SERVER_ERROR_MSG);
+                            return false;
+                        }
+                        break;
+
+
+
                 }
 
-                if (!GetMessage(out string response, sr))
-                {
-                    ShowMessageError(SERVER_ERROR_MSG);
-                    return;
-                }
 
-                guessWord = response;
-                Debug.WriteLine("The word is: " + guessWord);
-
-                StartGame();
             }
+            return true;
         }
 
         private bool SendMessage(string message, StreamWriter sw)
@@ -147,44 +210,106 @@ namespace hangman
             MessageBox.Show(this, message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void StartGame()
+        private void StartNewGame()
         {
             Debug.WriteLine("THE GAME START");
 
-            int x = 5;
-            int y = 430;
+            dhHangman.Mistakes = 0;
+
+            timer.Tag = 0;
+            timer.Start();
+
+            //if (letters is null)
+            //{
+            //    letters = new List<TextBox>();
+            //}
+            //else
+            //{
+            //    letters.Clear();
+            //}
+
+
+            int x = 0;
+            int y = 0;
             foreach (var letter in guessWord)
             {
                 TextBox txtLetter = new TextBox();
                 txtLetter.Tag = letter;
-                txtLetter.Font = new Font("Arial", 30);
+                txtLetter.Font = new Font("Arial", 18);
                 txtLetter.ReadOnly = true;
                 txtLetter.MaxLength = 1;
-                txtLetter.Size = new Size(50, 50);
+                txtLetter.Size = new Size(30, 30);
                 txtLetter.Location = new Point(x, y);
-                txtLetter.TextChanged += LetterTextChanged;
-                this.Controls.Add(txtLetter);
-                x += 60;
+                txtLetter.TextChanged += LetterText_TextChanged;
+                pLetters.Controls.Add(txtLetter);
+                x += 40;
+            }
+
+            dhHangman.Visible = true;
+            lblInfo.Visible = true;
+            txtTryLetter.Visible = true;
+            btnTryLetter.Visible = true;
+            lblTime.Visible = true;
+        }
+
+        private void LetterText_TextChanged(object sender, EventArgs e)
+        {
+            TextBox txtLetter = (sender as TextBox);
+        }
+
+
+        private void TxtTryLetter_TextChanged(object sender, EventArgs e)
+        {
+            TextBox txtTryLetter = (sender as TextBox);
+
+            txtTryLetter.Text = txtTryLetter.Text.ToUpper();
+
+            if (txtTryLetter.Text == "")
+            {
+                txtTryLetter.BackColor = Color.White;
             }
         }
 
-        private void LetterTextChanged(object sender, EventArgs e)
+        private void BtnTryLetter_Click(object sender, EventArgs e)
         {
-            TextBox txtLetter = (sender as TextBox);
+            string letter = txtTryLetter.Text.Trim();
 
-            txtLetter.Text = txtLetter.Text.ToUpper();
+            if (letter == "") return;
+            if (guessWord.Contains(letter))
+            {
+                txtTryLetter.BackColor = Color.Green;
 
-            if(txtLetter.Text == txtLetter.Tag)
-            {
-                txtLetter.BackColor = Color.Green;
-            }else if(txtLetter.Text != txtLetter.Tag && txtLetter.Text != "")
-            {
-                txtLetter.BackColor = Color.Red;
+                Debug.WriteLine("Letter: " + letter);
+                for (int i = 0; i < pLetters.Controls.Count; i++)
+                {
+                    Debug.WriteLine("Tag letter: " + pLetters.Controls[i].Tag);
+                    if ((char)(pLetters.Controls[i] as TextBox).Tag == char.Parse(letter))
+                    {
+                        pLetters.Controls[i].Text = letter;
+                    }
+                }
             }
             else
             {
-                txtLetter.BackColor= Color.White;
+                txtTryLetter.BackColor = Color.Red;
+                dhHangman.Mistakes += 1;
+
             }
+
+        }
+
+        private void DhHangman_Hanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Timer_OnTick(object sender, EventArgs e)
+        {
+            timer.Tag = (int)timer.Tag + 1;
+            TimeSpan time = TimeSpan.FromSeconds((int)timer.Tag);
+            Debug.WriteLine((int)timer.Tag);
+
+            lblTime.Text = $"{time.Minutes:D2}:{time.Seconds:D2}";
         }
     }
 }

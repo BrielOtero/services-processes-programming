@@ -12,3 +12,16 @@ C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\05-exercise\ha
 C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\05-exercise\hangman\bin\Debug\04-exercise.dll
 C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\05-exercise\hangman\bin\Debug\04-exercise.pdb
 C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\05-exercise\hangman\obj\Debug\hangman.csproj.CopyComplete
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\05-exercise\hangman\bin\Debug\hangman.exe.config
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\05-exercise\hangman\bin\Debug\hangman.exe
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\05-exercise\hangman\bin\Debug\hangman.pdb
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\05-exercise\hangman\bin\Debug\04-exercise.pdb
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\05-exercise\hangman\obj\Debug\hangman.csproj.AssemblyReference.cache
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\05-exercise\hangman\obj\Debug\hangman.csproj.SuggestedBindingRedirects.cache
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\05-exercise\hangman\obj\Debug\hangman.Form.resources
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\05-exercise\hangman\obj\Debug\hangman.Properties.Resources.resources
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\05-exercise\hangman\obj\Debug\hangman.csproj.GenerateResource.cache
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\05-exercise\hangman\obj\Debug\hangman.csproj.CoreCompileInputs.cache
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\05-exercise\hangman\obj\Debug\hangman.csproj.CopyComplete
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\05-exercise\hangman\obj\Debug\hangman.exe
+C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\05-exercise\hangman\obj\Debug\hangman.pdb
