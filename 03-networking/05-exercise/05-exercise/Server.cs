@@ -15,12 +15,12 @@ namespace _05_exercise
     {
         private readonly string PATH_WORD = Path.Combine(Environment.GetEnvironmentVariable("appdata"), "words.txt");
         private readonly string PATH_RECORDS = Path.Combine(Environment.GetEnvironmentVariable("appdata"), "records.bin");
+        private readonly object l = new object();
         private List<String> words;
         private List<Record> records;
         private const int PORT = 31416;
         private bool executeServer = true;
         private Socket serverSocket;
-        private Socket clientSocket;
         private enum eCommands
         {
             GETWORD, SENDWORD, GETRECORDS, SENDRECORD, CLOSESERVER
@@ -32,6 +32,10 @@ namespace _05_exercise
             {
                 string fileContent = File.ReadAllText(PATH_WORD).ToUpper();
                 words = fileContent.Split(",").ToList();
+                if (string.IsNullOrEmpty(words[words.Count - 1]))
+                {
+                    words.RemoveAt(words.Count - 1);
+                }
             }
             catch (IOException)
             {
@@ -73,6 +77,7 @@ namespace _05_exercise
                 }
                 else
                 {
+                    records = new List<Record>();
                     Debug.WriteLine($"Error on {nameof(SaveRecords)} null...");
                     return false;
                 }
@@ -81,10 +86,8 @@ namespace _05_exercise
             catch (IOException)
             {
                 Debug.WriteLine($"Error on {nameof(SaveRecords)} reading...");
-                records = new List<Record>()
-                {
-                    new Record("abc", 8)
-                };
+                records = new List<Record>();
+
                 return false;
             }
             return true;
@@ -168,9 +171,20 @@ namespace _05_exercise
         {
             while (executeServer)
             {
-                clientSocket = serverSocket.Accept();
-                new Thread(UserManagement).Start(clientSocket);
+                try
+                {
+                    Socket clientSocket = serverSocket.Accept();
+                    Thread thread = new Thread(UserManagement);
+                    thread.IsBackground = true;
+                    thread.Start(clientSocket);
+                }
+                catch (Exception)
+                {
+                    Debug.WriteLine("Server socket exception");
+                }
+
             }
+            serverSocket.Close();
         }
 
         private void UserManagement(object userSocket)
@@ -180,9 +194,6 @@ namespace _05_exercise
             using (StreamReader sr = new(ns))
             using (StreamWriter sw = new(ns))
             {
-                //sw.WriteLine("");
-                //sw.Flush();
-
 
                 if (TryGetMessage(out string response, sr))
                 {
@@ -196,64 +207,45 @@ namespace _05_exercise
                         switch (command)
                         {
                             case eCommands.GETWORD:
-                                if (words.Count <= 0) return;
+                                lock (l)
+                                {
+                                    if (words.Count <= 0) return;
 
-                                TrySendMessage(words.OrderBy(_ => new Random().Next()).ToList()[0], sw);
+                                    TrySendMessage(words.OrderBy(_ => new Random().Next()).ToList()[0], sw);
+                                }
+
                                 break;
                             case eCommands.SENDWORD:
                                 if (responseSplit.Length != 2) return;
 
-                                bool isWordAdded = false;
-
-                                if (!words.Contains(responseSplit[1]))
+                                lock (l)
                                 {
-                                    words.Add(responseSplit[1]);
-                                    isWordAdded = SaveWords();
+                                    SendWord(sw, responseSplit);
                                 }
-
-                                TrySendMessage(isWordAdded ? "OK" : "ERROR", sw);
                                 break;
                             case eCommands.GETRECORDS:
-                                if (records.Count <= 0) return;
-
-                                string msgRecords = JsonSerializer.Serialize(records);
-                                Debug.WriteLine("Records: " + msgRecords);
-                                TrySendMessage(msgRecords, sw);
-
+                                lock (l)
+                                {
+                                    string msgRecords = JsonSerializer.Serialize(records);
+                                    Debug.WriteLine("Records: " + msgRecords);
+                                    TrySendMessage(msgRecords, sw);
+                                }
 
                                 break;
                             case eCommands.SENDRECORD:
                                 if (responseSplit.Length != 2) return;
 
-                                    Debug.WriteLine(nameof(eCommands.SENDRECORD));
-
-                                    bool isRecordAdded = false;
-
-                                    Record? newRecord = JsonSerializer.Deserialize<Record>(responseSplit[1]);
-
-                                    if (newRecord != null)
-                                    {
-                                        if (records.Count == 3)
-                                        {
-                                            Record maxRecord = records.Max();
-
-                                            if (newRecord.Seconds < maxRecord.Seconds)
-                                            {
-                                                records.Remove(maxRecord);
-                                                records.Add(newRecord);
-                                                isRecordAdded = SaveRecords();
-                                            }
-                                        }
-                                        else
-                                        {
-                                            records.Add(newRecord);
-                                            isRecordAdded = SaveRecords();
-                                        }
-                                    }
-
-                                    TrySendMessage(isRecordAdded ? "ACCEPT" : "REJECT", sw);
+                                lock (l)
+                                {
+                                    SendRecord(sw, responseSplit);
+                                }
                                 break;
                             case eCommands.CLOSESERVER:
+                                lock (l)
+                                {
+                                    executeServer = false;
+                                    serverSocket.Close();
+                                }
                                 break;
                         }
                     }
@@ -261,6 +253,70 @@ namespace _05_exercise
             }
             (userSocket as Socket).Close();
 
+        }
+
+        private void SendWord(StreamWriter sw, string[] responseSplit)
+        {
+            bool isWordAdded = false;
+
+            try
+            {
+                List<string> tempWords = responseSplit[1].ToUpper().Split(",").ToList();
+
+                if (string.IsNullOrEmpty(tempWords[tempWords.Count - 1]))
+                {
+                    tempWords.RemoveAt(words.Count - 1);
+                }
+
+                tempWords.ForEach(word =>
+                {
+                    if (!words.Contains(word))
+                    {
+                        words.Add(word);
+                    }
+                });
+
+                isWordAdded = SaveWords();
+
+            }
+            catch (IOException)
+            {
+                Debug.WriteLine($"Error on {nameof(ReadWords)} reading words");
+                words = new List<string>();
+            }
+
+            TrySendMessage(isWordAdded ? "OK" : "ERROR", sw);
+        }
+
+        private void SendRecord(StreamWriter sw, string[] responseSplit)
+        {
+            Debug.WriteLine(nameof(eCommands.SENDRECORD));
+
+            bool isRecordAdded = false;
+
+            Record? newRecord = JsonSerializer.Deserialize<Record>(responseSplit[1]);
+
+            if (newRecord != null)
+            {
+                if (records.Count >= 3)
+                {
+                    Record maxRecord = records.Max();
+
+                    if (newRecord.Seconds < maxRecord.Seconds)
+                    {
+                        records.Remove(maxRecord);
+                        records.Add(newRecord);
+                        isRecordAdded = SaveRecords();
+                    }
+                }
+                else
+                {
+                    records.Add(newRecord);
+                    isRecordAdded = SaveRecords();
+                }
+            }
+
+            TrySendMessage(isRecordAdded ? "ACCEPT" : "REJECT", sw);
         }
 
         private bool TryGetMessage(out string response, StreamReader sr)

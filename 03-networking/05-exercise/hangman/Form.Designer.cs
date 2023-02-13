@@ -35,12 +35,14 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tsmiMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiNewGame = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShowRecords = new System.Windows.Forms.ToolStripMenuItem();
             this.dhHangman = new _04_exercise.DrawHanged();
             this.txtTryLetter = new System.Windows.Forms.TextBox();
             this.btnTryLetter = new System.Windows.Forms.Button();
             this.lblInfo = new System.Windows.Forms.Label();
             this.pLetters = new System.Windows.Forms.Panel();
             this.lblTime = new System.Windows.Forms.Label();
+            this.tsmiAddWords = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -71,7 +73,9 @@
             // tsmiMenu
             // 
             this.tsmiMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiNewGame});
+            this.tsmiNewGame,
+            this.tsmiShowRecords,
+            this.tsmiAddWords});
             this.tsmiMenu.Name = "tsmiMenu";
             this.tsmiMenu.Size = new System.Drawing.Size(50, 20);
             this.tsmiMenu.Text = "&Menu";
@@ -80,9 +84,17 @@
             // 
             this.tsmiNewGame.Name = "tsmiNewGame";
             this.tsmiNewGame.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.tsmiNewGame.Size = new System.Drawing.Size(175, 22);
+            this.tsmiNewGame.Size = new System.Drawing.Size(188, 22);
             this.tsmiNewGame.Text = "&New Game";
             this.tsmiNewGame.Click += new System.EventHandler(this.TsmiNewGame_Click);
+            // 
+            // tsmiShowRecords
+            // 
+            this.tsmiShowRecords.Name = "tsmiShowRecords";
+            this.tsmiShowRecords.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.tsmiShowRecords.Size = new System.Drawing.Size(188, 22);
+            this.tsmiShowRecords.Text = "&Show Records";
+            this.tsmiShowRecords.Click += new System.EventHandler(this.TsmiShowRecords_Click);
             // 
             // dhHangman
             // 
@@ -146,6 +158,14 @@
             this.lblTime.Text = "00:00";
             this.lblTime.Visible = false;
             // 
+            // tsmiAddWords
+            // 
+            this.tsmiAddWords.Name = "tsmiAddWords";
+            this.tsmiAddWords.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.tsmiAddWords.Size = new System.Drawing.Size(188, 22);
+            this.tsmiAddWords.Text = "&Add Words";
+            this.tsmiAddWords.Click += new System.EventHandler(this.TsmiAddWords_Click);
+            // 
             // Form
             // 
             this.AcceptButton = this.btnTryLetter;
@@ -185,6 +205,8 @@
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Panel pLetters;
         private System.Windows.Forms.Label lblTime;
+        private System.Windows.Forms.ToolStripMenuItem tsmiShowRecords;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAddWords;
     }
 }
 

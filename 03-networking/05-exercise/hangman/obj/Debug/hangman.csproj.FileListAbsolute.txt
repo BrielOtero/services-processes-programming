@@ -25,3 +25,7 @@ C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\05-exercise\h
 C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\05-exercise\hangman\obj\Debug\hangman.csproj.CopyComplete
 C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\05-exercise\hangman\obj\Debug\hangman.exe
 C:\Users\ID\git\Class\Services-Processes-Programming\03-networking\05-exercise\hangman\obj\Debug\hangman.pdb
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\05-exercise\hangman\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\05-exercise\hangman\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\05-exercise\hangman\obj\Debug\hangman.RecordName.resources
+C:\Users\Gabriel\git\Services-Processes-Programming\03-networking\05-exercise\hangman\obj\Debug\hangman.SendWord.resources
