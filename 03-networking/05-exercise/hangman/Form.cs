@@ -19,7 +19,9 @@ namespace hangman
     public partial class Form : System.Windows.Forms.Form
     {
         private const int PORT = 31416;
-        private const string IP_SERVER = "127.0.0.1";
+        private const string IP_SERVER = "192.168.20.18";
+        //private const int PORT = 31416;
+        //private const string IP_SERVER = "127.0.0.1";
         private IPEndPoint ie;
         private Socket clientSocket;
         private string guessWord;
@@ -245,7 +247,7 @@ namespace hangman
                 return false;
             }
 
-            guessWord = guessWordResponse;
+            guessWord = guessWordResponse.ToUpper();
             Debug.WriteLine("The word is: " + guessWord);
 
             return true;
@@ -392,7 +394,7 @@ namespace hangman
         private void DhHangman_Hanged(object sender, EventArgs e)
         {
             isHanged = true;
-            MessageBox.Show(this, YOU_LOST_MSG, "LOST", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(this, YOU_LOST_MSG+$"The word was{guessWord}", "LOST", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void Timer_OnTick(object sender, EventArgs e)

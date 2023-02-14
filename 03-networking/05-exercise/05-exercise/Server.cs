@@ -209,7 +209,11 @@ namespace _05_exercise
                             case eCommands.GETWORD:
                                 lock (l)
                                 {
-                                    if (words.Count <= 0) return;
+                                    if (words.Count <= 0)
+                                    {
+                                        TrySendMessage("NO_WORDS", sw);
+                                        return;
+                                    }
 
                                     TrySendMessage(words.OrderBy(_ => new Random().Next()).ToList()[0], sw);
                                 }
@@ -277,8 +281,8 @@ namespace _05_exercise
                 });
 
                 isWordAdded = SaveWords();
-
             }
+
             catch (IOException)
             {
                 Debug.WriteLine($"Error on {nameof(ReadWords)} reading words");
