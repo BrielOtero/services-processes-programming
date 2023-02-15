@@ -197,7 +197,7 @@ namespace _05_exercise
 
                 if (TryGetMessage(out string response, sr))
                 {
-
+                    
                     string[] responseSplit = response.Split(" ");
                     response = responseSplit[0].ToUpper();
                     Debug.WriteLine("Command: " + response);
@@ -328,6 +328,11 @@ namespace _05_exercise
             try
             {
                 response = sr.ReadLine();
+
+                if(string.IsNullOrEmpty(response))
+                {
+                    return false;
+                }
                 return true;
             }
             catch (IOException)

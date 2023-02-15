@@ -19,9 +19,9 @@ namespace hangman
     public partial class Form : System.Windows.Forms.Form
     {
         private const int PORT = 31416;
-        private const string IP_SERVER = "192.168.20.18";
+        //private const string IP_SERVER = "192.168.20.18";
         //private const int PORT = 31416;
-        //private const string IP_SERVER = "127.0.0.1";
+        private const string IP_SERVER = "127.0.0.1";
         private IPEndPoint ie;
         private Socket clientSocket;
         private string guessWord;

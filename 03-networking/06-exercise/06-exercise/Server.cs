@@ -11,29 +11,22 @@ namespace _06_exercise
 {
     internal class Server
     {
+        private readonly int PORT = 31416;
         private Socket serverSocket;
         private IPEndPoint ie;
-        private readonly int PORT = 31416;
         private bool executeServer = true;
+        private bool isGameAlive = true;
+
         private List<User> users = new List<User>();
         private List<int> numbers = new();
 
         private User? userWinner;
         private int thereAreWinner;
+        //private bool maxUsersReached;
 
 
         public void Start()
         {
-            for (int i = 1; i < 21; i++)
-            {
-                numbers.Add(i);
-            }
-
-            thereAreWinner = -1;
-            userWinner = null;
-
-            numbers = numbers.OrderBy(_ => new Random().Next()).ToList();
-
             ie = new(IPAddress.Any, PORT);
 
             serverSocket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -57,24 +50,49 @@ namespace _06_exercise
 
         private void WaitForUserConnection()
         {
-            Thread timeThread = new(TimeManagement);
-            timeThread.IsBackground = true;
-            timeThread.Start();
-            while (executeServer)
+            while (isGameAlive)
             {
-                try
-                {
+                ResetGame();
+                Thread timeThread = new(TimeManagement);
+                timeThread.IsBackground = true;
+                timeThread.Start();
 
-
-                    Socket clientSocket = serverSocket.Accept();
-                    Thread thread = new(UserManagement);
-                    thread.IsBackground = true;
-                    thread.Start(clientSocket);
-                }
-                catch (SocketException se)
+                while (executeServer)
                 {
-                    Debug.WriteLine(se.Message);
+                    try
+                    {
+                        Socket clientSocket = serverSocket.Accept();
+                        Thread thread = new(UserManagement);
+                        thread.IsBackground = true;
+                        thread.Start(clientSocket);
+                    }
+                    catch (SocketException se)
+                    {
+                        Debug.WriteLine(se.Message);
+                    }
                 }
+                users.ForEach(user =>
+                {
+                    user.UserSocket.Close();
+                });
+            }
+
+        }
+        private void ResetGame()
+        {
+            lock (l)
+            {
+                numbers.Clear();
+                users.Clear();
+
+                for (int i = 1; i < 21; i++)
+                {
+                    numbers.Add(i);
+                }
+                thereAreWinner = -1;
+                userWinner = null;
+                numbers = numbers.OrderBy(_ => new Random().Next()).ToList();
+                executeServer = true;
             }
         }
 
@@ -82,8 +100,8 @@ namespace _06_exercise
         {
             bool executeTimer = true;
             int timeInSeconds = 0;
-            int timeToReach = 5;
-            bool timerStart = false;
+            int timeToReach = 30;
+            bool isTimerStarted = false;
             int winnerNumber;
 
             while (executeTimer)
@@ -94,10 +112,10 @@ namespace _06_exercise
                 {
                     if (users.Count >= 2)
                     {
-                        timerStart = true;
+                        isTimerStarted = true;
                     }
 
-                    if (timerStart)
+                    if (isTimerStarted)
                     {
                         timeInSeconds++;
                         TrySendMessageToAll(TimeSpan.FromSeconds(timeInSeconds).ToString("mm':'ss"));
@@ -112,12 +130,7 @@ namespace _06_exercise
                         {
                             if (user.LuckyNumber == winnerNumber)
                             {
-                                user.IsWinner = true;
                                 userWinner = user;
-                            }
-                            else
-                            {
-                                user.IsWinner = false;
                             }
                         });
 
@@ -133,6 +146,8 @@ namespace _06_exercise
 
                         Debug.WriteLine("Winner number: " + winnerNumber);
                         executeTimer = false;
+                        executeServer = false;
+
                     }
                 }
             }
@@ -144,19 +159,17 @@ namespace _06_exercise
             public IPAddress UserIpAddress;
             public bool IsConnected;
             public int LuckyNumber;
-            public bool IsWinner;
 
-            public User(Socket userSocket) : this(userSocket, -1, null, true, false) { }
-            public User(int luckyNumber) : this(null, luckyNumber, null, true, false) { }
+            public User(Socket userSocket) : this(userSocket, -1, null, true) { }
+            public User(int luckyNumber) : this(null, luckyNumber, null, true) { }
 
 
-            public User(Socket userSocket, int luckyNumber, IPAddress userIpAdress, bool isConnected, bool isWinner)
+            public User(Socket userSocket, int luckyNumber, IPAddress userIpAddress, bool isConnected)
             {
                 this.UserSocket = userSocket;
                 this.LuckyNumber = luckyNumber;
-                this.UserIpAddress = userIpAdress;
+                this.UserIpAddress = userIpAddress;
                 this.IsConnected = isConnected;
-                this.IsWinner = isWinner;
             }
         }
         private readonly object l = new();
@@ -165,15 +178,16 @@ namespace _06_exercise
         {
             User user;
             bool isUserWaitingNotified = false;
-            bool needMaxUsersNotified = false;
-
+            bool maxUsersReached = false;
 
             lock (l)
             {
                 user = new((Socket)clientSocket);
 
+                Debug.WriteLine(numbers.Count);
                 if (numbers.Count != 0)
                 {
+                    maxUsersReached = false;
                     user.LuckyNumber = numbers[0];
                     user.UserIpAddress = (user.UserSocket.RemoteEndPoint as IPEndPoint).Address;
                     numbers.RemoveAt(0);
@@ -181,7 +195,7 @@ namespace _06_exercise
                 }
                 else
                 {
-                    needMaxUsersNotified = true;
+                    maxUsersReached = true;
                 }
             }
 
@@ -189,7 +203,7 @@ namespace _06_exercise
             using (StreamWriter sw = new(ns))
             using (StreamReader sr = new(ns))
             {
-                if (needMaxUsersNotified)
+                if (maxUsersReached)
                 {
                     TrySendMessage("MAX USERS REACHED", sw);
                 }
@@ -216,7 +230,9 @@ namespace _06_exercise
                             switch (thereAreWinner)
                             {
                                 case 0:
-                                    TrySendMessage(user.IsWinner ? $"You WIN with number {user.LuckyNumber}" : $" The WINNER is {userWinner?.UserIpAddress.ToString()} with number {userWinner?.LuckyNumber}. Your number was {user.LuckyNumber}", sw);
+                                    string winnerMessage = $"You WIN with number {user.LuckyNumber}";
+                                    string lostMessage = $" The WINNER is {userWinner?.UserIpAddress.ToString()} with number {userWinner?.LuckyNumber}. Your number was {user.LuckyNumber}";
+                                    TrySendMessage(user.LuckyNumber == userWinner?.LuckyNumber ? winnerMessage : lostMessage, sw);
                                     user.IsConnected = false;
                                     break;
                                 case 1:
@@ -227,13 +243,7 @@ namespace _06_exercise
                         }
                     }
                 }
-            }
-            if (!needMaxUsersNotified)
-            {
-                lock (l)
-                {
-                    users.Remove(user);
-                }
+
             }
             user.UserSocket.Close();
 
@@ -246,7 +256,7 @@ namespace _06_exercise
                 sw.WriteLine(message);
                 sw.Flush();
             }
-            catch (SocketException)
+            catch (IOException)
             {
                 Debug.WriteLine($"ERROR: TrySendMessage {message}");
                 return false;
@@ -269,7 +279,6 @@ namespace _06_exercise
                         {
 
                             sw.WriteLine(message);
-
                         }
                     }
                     catch (Exception)
@@ -278,8 +287,6 @@ namespace _06_exercise
                     }
                 }
             }
-
-
             return false;
         }
 
@@ -299,7 +306,6 @@ namespace _06_exercise
                 {
                     Debug.WriteLine($"Port {ie.Port} in use!");
                 }
-
             }
 
             if (!isBinded)
