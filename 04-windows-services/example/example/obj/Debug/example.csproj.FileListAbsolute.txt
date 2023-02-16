@@ -1,0 +1,11 @@
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\example\example\bin\Debug\example.exe.config
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\example\example\bin\Debug\example.exe
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\example\example\bin\Debug\example.pdb
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\example\example\obj\Debug\example.csproj.AssemblyReference.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\example\example\obj\Debug\example.csproj.SuggestedBindingRedirects.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\example\example\obj\Debug\example.ProjectInstaller.resources
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\example\example\obj\Debug\example.Service1.resources
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\example\example\obj\Debug\example.csproj.GenerateResource.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\example\example\obj\Debug\example.csproj.CoreCompileInputs.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\example\example\obj\Debug\example.exe
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\example\example\obj\Debug\example.pdb

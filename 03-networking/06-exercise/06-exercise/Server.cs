@@ -22,7 +22,6 @@ namespace _06_exercise
 
         private User? userWinner;
         private int thereAreWinner;
-        //private bool maxUsersReached;
 
 
         public void Start()

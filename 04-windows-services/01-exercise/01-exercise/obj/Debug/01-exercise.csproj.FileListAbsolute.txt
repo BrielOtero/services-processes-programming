@@ -1,0 +1,10 @@
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\01-exercise\01-exercise\bin\Debug\01-exercise.exe.config
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\01-exercise\01-exercise\bin\Debug\01-exercise.exe
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\01-exercise\01-exercise\bin\Debug\01-exercise.pdb
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\01-exercise\01-exercise\obj\Debug\01-exercise.csproj.AssemblyReference.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\01-exercise\01-exercise\obj\Debug\01-exercise.csproj.SuggestedBindingRedirects.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\01-exercise\01-exercise\obj\Debug\_01_exercise.ProjectInstaller.resources
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\01-exercise\01-exercise\obj\Debug\01-exercise.csproj.GenerateResource.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\01-exercise\01-exercise\obj\Debug\01-exercise.csproj.CoreCompileInputs.cache
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\01-exercise\01-exercise\obj\Debug\01-exercise.exe
+C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\01-exercise\01-exercise\obj\Debug\01-exercise.pdb

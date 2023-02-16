@@ -1,0 +1,13 @@
+﻿Installing assembly 'C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\example\example\bin\Debug\example.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\example\example\bin\Debug\example.InstallLog
+   assemblypath = C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\example\example\bin\Debug\example.exe
+Installing service SimpleService...
+Service SimpleService has been successfully installed.
+Creating EventLog source SimpleService in log Application...
+Committing assembly 'C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\example\example\bin\Debug\example.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\example\example\bin\Debug\example.InstallLog
+   assemblypath = C:\Users\Gabriel\git\Services-Processes-Programming\04-windows-services\example\example\bin\Debug\example.exe
