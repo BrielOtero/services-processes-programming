@@ -10,6 +10,7 @@ using System.Net;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace _01_exercise
 {
@@ -21,7 +22,7 @@ namespace _01_exercise
         }
         private const int DEFAULT_PORT = 31416;
         private int PORT = 31416;
-        private bool serverRunning = true;
+        private bool serverRunning;
 
 
         private readonly string PASSWORD_PATH = Path.Combine(Environment.GetEnvironmentVariable("PROGRAMDATA").ToString(), "password.txt");
@@ -38,12 +39,14 @@ namespace _01_exercise
 
         protected override void OnStart(string[] args)
         {
-            StartServer();
+            serverRunning = true;
+            new Thread(StartServer).Start();
         }
 
         protected override void OnStop()
         {
             serverRunning = false;
+            socketServer?.Close();
         }
         private void writeEvent(string message)
         {
@@ -60,52 +63,56 @@ namespace _01_exercise
 
         private void StartServer()
         {
-            string portFileContent = File.ReadAllText(PORT_PATH);
+            string portFileContent;
+
+            try
+            {
+                portFileContent = File.ReadAllText(PORT_PATH);
+            }
+            catch (FileNotFoundException)
+            {
+                portFileContent = null;
+            }
 
             if (string.IsNullOrEmpty(portFileContent))
             {
                 PORT = DEFAULT_PORT;
                 writeEvent($"Error reading file PORT!");
-
             }
             else
             {
                 if (uint.TryParse(portFileContent, out uint readPort))
                 {
                     PORT = (int)readPort;
-                    writeEvent($"Error reading file PORT!");
                 }
                 else
                 {
+                    writeEvent($"Error reading file PORT!");
                     PORT = DEFAULT_PORT;
                 }
             }
 
             ie = new IPEndPoint(IPAddress.Any, PORT);
             Console.WriteLine("Start server");
+            socketServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            using (socketServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
+
+            try
             {
-
-                try
-                {
-
-                    socketServer.Bind(ie);
-                    Console.WriteLine("Bind establish");
-                    writeEvent($"Listen PORT: {ie.Port}");
-                }
-                catch (SocketException s)
-                {
-                    Console.WriteLine(s.Message);
-                    Console.WriteLine($"Port {ie.Port} in use!");
-                    writeEvent("All PORTS in use");
-                    return;
-                }
-
-                socketServer.Listen(10);
-                WaitForConnection();
+                socketServer.Bind(ie);
+                Console.WriteLine("Bind establish");
+                writeEvent($"Listen PORT: {ie.Port}");
             }
-            socketServer.Close();
+            catch (SocketException s)
+            {
+                Console.WriteLine(s.Message);
+                Console.WriteLine($"Port {ie.Port} in use!");
+                writeEvent("All PORTS in use");
+                return;
+            }
+
+            socketServer.Listen(10);
+            WaitForConnection();
 
         }
 
@@ -115,15 +122,23 @@ namespace _01_exercise
 
             while (serverRunning)
             {
-                using (socketClient = socketServer?.Accept())
-                using (NetworkStream ns = new NetworkStream(socketClient))
-                using (StreamReader sr = new StreamReader(ns))
-                using (StreamWriter sw = new StreamWriter(ns))
+                try
                 {
-                    Console.WriteLine("Connected");
-                    serverRunning = WaitForCommand(sr, sw);
+                    using (socketClient = socketServer?.Accept())
+                    using (NetworkStream ns = new NetworkStream(socketClient))
+                    using (StreamReader sr = new StreamReader(ns))
+                    using (StreamWriter sw = new StreamWriter(ns))
+                    {
+                        Console.WriteLine("Connected");
+                        serverRunning = WaitForCommand(sr, sw);
+                    }
+                }
+                catch (SocketException)
+                {
+                    Debug.WriteLine("Socket Exception");
                 }
             }
+            socketServer?.Close();
         }
 
         private bool WaitForCommand(StreamReader sr, StreamWriter sw)
